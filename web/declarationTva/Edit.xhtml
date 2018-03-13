@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="DeclarationTvaEditDlg" widgetVar="DeclarationTvaEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditDeclarationTvaTitle}">
+            <h:form id="DeclarationTvaEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{declarationTvaController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditDeclarationTvaLabel_dateCreation}" for="dateCreation" />
+                        <p:calendar id="dateCreation" pattern="MM/dd/yyyy" value="#{declarationTvaController.selected.dateCreation}" title="#{bundle.EditDeclarationTvaTitle_dateCreation}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditDeclarationTvaLabel_utilisateur}" for="utilisateur" />
+                        <p:selectOneMenu id="utilisateur" value="#{declarationTvaController.selected.utilisateur}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{employeController.itemsAvailableSelectOne}"
+                                           var="utilisateurItem"
+                                           itemValue="#{utilisateurItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditDeclarationTvaLabel_periode}" for="periode" />
+                        <p:inputText id="periode" value="#{declarationTvaController.selected.periode}" title="#{bundle.EditDeclarationTvaTitle_periode}" />
+                        <p:outputLabel value="#{bundle.EditDeclarationTvaLabel_annee}" for="annee" />
+                        <p:inputText id="annee" value="#{declarationTvaController.selected.annee}" title="#{bundle.EditDeclarationTvaTitle_annee}" />
+                        <p:outputLabel value="#{bundle.EditDeclarationTvaLabel_taxeDue}" for="taxeDue" />
+                        <p:inputText id="taxeDue" value="#{declarationTvaController.selected.taxeDue}" title="#{bundle.EditDeclarationTvaTitle_taxeDue}" />
+                        <p:outputLabel value="#{bundle.EditDeclarationTvaLabel_taxeDeductible}" for="taxeDeductible" />
+                        <p:inputText id="taxeDeductible" value="#{declarationTvaController.selected.taxeDeductible}" title="#{bundle.EditDeclarationTvaTitle_taxeDeductible}" />
+                        <p:outputLabel value="#{bundle.EditDeclarationTvaLabel_taxeAverser}" for="taxeAverser" />
+                        <p:inputText id="taxeAverser" value="#{declarationTvaController.selected.taxeAverser}" title="#{bundle.EditDeclarationTvaTitle_taxeAverser}" />
+                        <p:outputLabel value="#{bundle.EditDeclarationTvaLabel_taxeAreporter}" for="taxeAreporter" />
+                        <p:inputText id="taxeAreporter" value="#{declarationTvaController.selected.taxeAreporter}" title="#{bundle.EditDeclarationTvaTitle_taxeAreporter}" />
+                        <p:outputLabel value="#{bundle.EditDeclarationTvaLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{declarationTvaController.selected.id}" title="#{bundle.EditDeclarationTvaTitle_id}" />
+                        <p:outputLabel value="#{bundle.EditDeclarationTvaLabel_type}" for="type" />
+                        <p:inputText id="type" value="#{declarationTvaController.selected.type}" title="#{bundle.EditDeclarationTvaTitle_type}" />
+                        <p:outputLabel value="#{bundle.EditDeclarationTvaLabel_societe}" for="societe" />
+                        <p:selectOneMenu id="societe" value="#{declarationTvaController.selected.societe}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{societeController.itemsAvailableSelectOne}"
+                                           var="societeItem"
+                                           itemValue="#{societeItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{declarationTvaController.update}" value="#{bundle.Save}" update="display,:DeclarationTvaListForm:datalist,:growl" oncomplete="handleSubmit(args, 'DeclarationTvaEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="DeclarationTvaEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

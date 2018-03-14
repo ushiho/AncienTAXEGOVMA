@@ -5,10 +5,8 @@
  */
 package util;
 
-import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
@@ -46,7 +44,7 @@ public class DateUtil {
 
     public static Date parse(String date) {
         try {
-            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
             return simpleDateFormat.parse(date);
         } catch (ParseException ex) {
             return null;
@@ -74,6 +72,17 @@ public class DateUtil {
             GregorianCalendar gc = new GregorianCalendar();
             gc.setTime(dateAModify);
             gc.add(GregorianCalendar.MONTH, nb);
+            return gc.getTime();
+        } else {
+            return null;
+        }
+    }
+
+    public static java.util.Date addYearToDate(int nb, java.util.Date dateAModify) {
+        if (dateAModify != null) {
+            GregorianCalendar gc = new GregorianCalendar();
+            gc.setTime(dateAModify);
+            gc.add(GregorianCalendar.YEAR, nb);
             return gc.getTime();
         } else {
             return null;

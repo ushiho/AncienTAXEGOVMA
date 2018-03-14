@@ -35,14 +35,15 @@ public class DeclarationIs implements Serializable {
     private List<ExerciceIS> exerciceISs;
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date dateDeclaration;
-    private int etat;//0;broul 1: valider 2:payer
+    private int etat = 0;//0;broul 1: valider 2:payer
+    private int nbAccomptePaye = 0;//1 ,2 ,3 ,4
     private Float montantIs = new Float(0);
     private float tauxIs = 0;
     private Float resultatComptable = new Float(0);
     private Float chiffreAffaire = new Float(0);
     private Float resultatFiscal = new Float(0);
     @OneToMany(mappedBy = "declarationIs")
-    private List<PaiementISTr1> paiementISs;
+    private List<PaiementIS> paiementISs;
 
     public DeclarationIs() {
     }
@@ -128,14 +129,14 @@ public class DeclarationIs implements Serializable {
         this.resultatComptable = resultatComptable;
     }
 
-    public List<PaiementISTr1> getPaiementISs() {
+    public List<PaiementIS> getPaiementISs() {
         if (paiementISs == null) {
             paiementISs = new ArrayList();
         }
         return paiementISs;
     }
 
-    public void setPaiementISs(List<PaiementISTr1> paiementISs) {
+    public void setPaiementISs(List<PaiementIS> paiementISs) {
         this.paiementISs = paiementISs;
     }
 
@@ -153,6 +154,14 @@ public class DeclarationIs implements Serializable {
 
     public void setChiffreAffaire(Float chiffreAffaire) {
         this.chiffreAffaire = chiffreAffaire;
+    }
+
+    public int getNbAccomptePaye() {
+        return nbAccomptePaye;
+    }
+
+    public void setNbAccomptePaye(int nbAccomptePaye) {
+        this.nbAccomptePaye = nbAccomptePaye;
     }
 
     @Override

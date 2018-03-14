@@ -1,9 +1,9 @@
 package controller;
 
-import bean.PaiementISTr2;
+import bean.PaiementIS;
 import controller.util.JsfUtil;
 import controller.util.JsfUtil.PersistAction;
-import service.PaiementISTr2Facade;
+import service.PaiementISFacade;
 
 import java.io.Serializable;
 import java.util.List;
@@ -19,23 +19,23 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
-@Named("paiementISTr2Controller")
+@Named("paiementISTr1Controller")
 @SessionScoped
-public class PaiementISTr2Controller implements Serializable {
+public class PaiementISController implements Serializable {
 
     @EJB
-    private service.PaiementISTr2Facade ejbFacade;
-    private List<PaiementISTr2> items = null;
-    private PaiementISTr2 selected;
+    private service.PaiementISFacade ejbFacade;
+    private List<PaiementIS> items = null;
+    private PaiementIS selected;
 
-    public PaiementISTr2Controller() {
+    public PaiementISController() {
     }
 
-    public PaiementISTr2 getSelected() {
+    public PaiementIS getSelected() {
         return selected;
     }
 
-    public void setSelected(PaiementISTr2 selected) {
+    public void setSelected(PaiementIS selected) {
         this.selected = selected;
     }
 
@@ -45,36 +45,36 @@ public class PaiementISTr2Controller implements Serializable {
     protected void initializeEmbeddableKey() {
     }
 
-    private PaiementISTr2Facade getFacade() {
+    private PaiementISFacade getFacade() {
         return ejbFacade;
     }
 
-    public PaiementISTr2 prepareCreate() {
-        selected = new PaiementISTr2();
+    public PaiementIS prepareCreate() {
+        selected = new PaiementIS();
         initializeEmbeddableKey();
         return selected;
     }
 
     public void create() {
-        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("PaiementISTr2Created"));
+        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("PaiementISTr1Created"));
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
 
     public void update() {
-        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("PaiementISTr2Updated"));
+        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("PaiementISTr1Updated"));
     }
 
     public void destroy() {
-        persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle").getString("PaiementISTr2Deleted"));
+        persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle").getString("PaiementISTr1Deleted"));
         if (!JsfUtil.isValidationFailed()) {
             selected = null; // Remove selection
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
 
-    public List<PaiementISTr2> getItems() {
+    public List<PaiementIS> getItems() {
         if (items == null) {
             items = getFacade().findAll();
         }
@@ -109,29 +109,29 @@ public class PaiementISTr2Controller implements Serializable {
         }
     }
 
-    public PaiementISTr2 getPaiementISTr2(java.lang.Long id) {
+    public PaiementIS getPaiementISTr1(java.lang.Long id) {
         return getFacade().find(id);
     }
 
-    public List<PaiementISTr2> getItemsAvailableSelectMany() {
+    public List<PaiementIS> getItemsAvailableSelectMany() {
         return getFacade().findAll();
     }
 
-    public List<PaiementISTr2> getItemsAvailableSelectOne() {
+    public List<PaiementIS> getItemsAvailableSelectOne() {
         return getFacade().findAll();
     }
 
-    @FacesConverter(forClass = PaiementISTr2.class)
-    public static class PaiementISTr2ControllerConverter implements Converter {
+    @FacesConverter(forClass = PaiementIS.class)
+    public static class PaiementISTr1ControllerConverter implements Converter {
 
         @Override
         public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
             if (value == null || value.length() == 0) {
                 return null;
             }
-            PaiementISTr2Controller controller = (PaiementISTr2Controller) facesContext.getApplication().getELResolver().
-                    getValue(facesContext.getELContext(), null, "paiementISTr2Controller");
-            return controller.getPaiementISTr2(getKey(value));
+            PaiementISController controller = (PaiementISController) facesContext.getApplication().getELResolver().
+                    getValue(facesContext.getELContext(), null, "paiementISTr1Controller");
+            return controller.getPaiementISTr1(getKey(value));
         }
 
         java.lang.Long getKey(String value) {
@@ -151,11 +151,11 @@ public class PaiementISTr2Controller implements Serializable {
             if (object == null) {
                 return null;
             }
-            if (object instanceof PaiementISTr2) {
-                PaiementISTr2 o = (PaiementISTr2) object;
+            if (object instanceof PaiementIS) {
+                PaiementIS o = (PaiementIS) object;
                 return getStringKey(o.getId());
             } else {
-                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), PaiementISTr2.class.getName()});
+                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), PaiementIS.class.getName()});
                 return null;
             }
         }

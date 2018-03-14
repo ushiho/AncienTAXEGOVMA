@@ -31,6 +31,7 @@ public class Penalite implements Serializable {
     private Date dateDernierDeclaration;
     private Double montantPenalite;
     private Float taux;//5%  ou/et 0.5%
+    private boolean appliquer;
 
     public Penalite(Date dateDernierDeclaration, Double montantPenalite, Float taux) {
         this.dateDernierDeclaration = dateDernierDeclaration;

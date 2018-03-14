@@ -5,15 +5,12 @@
  */
 package service;
 
+import bean.CompteBanquaire;
 import bean.DeclarationIs;
 import bean.ExerciceIS;
-import bean.PaiementISTr1;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import bean.PaiementIS;
 import java.util.Date;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -34,7 +31,7 @@ public class DeclarationIsFacade extends AbstractFacade<DeclarationIs> {
     @EJB
     private ExerciceISFacade exerciceISFacade;
     @EJB
-    private PaiementISTr1Facade paiementISFacade;
+    private PaiementISFacade paiementISFacade;
     @EJB
     private SocieteFacade societeFacade;
     @EJB
@@ -50,11 +47,14 @@ public class DeclarationIsFacade extends AbstractFacade<DeclarationIs> {
     }
 
     public int save(List<ExerciceIS> exerciceISs) {
-        if (testParam(exerciceISs)) {
+        if (testParamForSave(exerciceISs)) {
             return -1;
         }
         DeclarationIs declarationIs = calculerResultatFiscaleEtComptable(exerciceISs);
-        testExoneration(declarationIs);
+        if (!testExoneration(declarationIs)) {
+            //creation de penalite sur retard de declaration
+
+        }
         declarationIs.setExerciceISs(exerciceISs);
         initDecalarationIsParam(declarationIs);
         create(declarationIs);
@@ -62,7 +62,7 @@ public class DeclarationIsFacade extends AbstractFacade<DeclarationIs> {
         return 1;
     }
 
-    private boolean testParam(List<ExerciceIS> exerciceISs) {
+    private boolean testParamForSave(List<ExerciceIS> exerciceISs) {
         return exerciceISs == null || exerciceISs.get(0) == null || exerciceISs.isEmpty() || exerciceISFacade.testParams(exerciceISs) < 0;
     }
 
@@ -73,16 +73,17 @@ public class DeclarationIsFacade extends AbstractFacade<DeclarationIs> {
     }
 
     //test de l exoneration
-    private void testExoneration(DeclarationIs declarationIs) {
+    private boolean testExoneration(DeclarationIs declarationIs) {
         if (societeFacade.exonerer(declarationIs.getSociete())) {
             declarationIs.setMontantIs(0f);
             declarationIs.getSociete().setDeficit(0f);
+            return true;
         } else if (calculerDeficit(declarationIs) > 0) {
             calcMontantIS(declarationIs);
         } else {
             declarationIs.setMontantIs(0f);
         }
-
+        return false;
     }
 
     //le calcul de mtIS a payer 
@@ -128,67 +129,76 @@ public class DeclarationIsFacade extends AbstractFacade<DeclarationIs> {
         return declarationIs;
     }
 
+    ///validation de la declarartion
     public int valider(DeclarationIs declarationIs) {
         if (declarationIs == null) {
             return -1;
         }
-        PaiementISTr1 paiementIS = initPaiementsParams(declarationIs);
-        paiementIS.setId(generate("PaiementIS", "id"));//max id existe ds kla table
+        List<PaiementIS> paiementISs = paiementISFacade.creation(declarationIs);
         declarationIs.setEtat(1);
-        //declarationIs.setPaiementIS(paiementIS);
-        paiementIS.setDeclarationIs(declarationIs);
+        declarationIs.setPaiementISs(paiementISs);
         edit(declarationIs);
-//        paiementISFacade.save(paiementIS);
+        paiementISFacade.save(paiementISs);
         return 1;
     }
 
-    private PaiementISTr1 initPaiementsParams(DeclarationIs declarationIs) {
-        PaiementISTr1 paiementISTr1 = new PaiementISTr1(0, null, null);
-        String df = "31/03/" + (declarationIs.getDateDeclaration().getYear() + 1)
-                + " " + declarationIs.getDateDeclaration().getHours() + ":" + declarationIs.getDateDeclaration().getMinutes()
-                + ":" + declarationIs.getDateDeclaration().getSeconds();
-        try {
-            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yy hh:mm:ss");
-            paiementISTr1.setDateDernierDelai(sdf.parse(df));
-        } catch (ParseException ex) {
-            Logger.getLogger(DeclarationIsFacade.class.getName()).log(Level.SEVERE, null, ex);
+    public int payer(DeclarationIs declarationIs, CompteBanquaire compteBanquaire) {
+        if (testParamForPayer(declarationIs, compteBanquaire)) {
+            return -1;
         }
-        return paiementISTr1;
+        PaiementIS paiementIS = paiementApayer(declarationIs);
+        if (paiementIS == null) {
+            return -2;
+        }
+        appliquerPenalitePrPaiement(paiementIS);
+        if (compteBanquaireFacade.crediter(compteBanquaire, paiementIS.getMtTotal()) < 0) {
+            return -3;
+        } else {
+            compteBanquaireFacade.debiter(compteBanquaireFacade.findByDGI(), paiementIS.getMtTotal());
+            paiementIS.setDatePaiement(new Date());
+            edit(declarationIs);
+            paiementISFacade.edit(paiementIS);
+        }
+        return 1;
     }
 
-//    public int payer(DeclarationIs declarationIs, CompteBanquaire compteBanquaire) {
-//        if (declarationIs == null || !compteBanquaireFacade.findBySociete(declarationIs.getSociete()).contains(compteBanquaire)) {
-//            return -1;
-//        }
-//        PaiementISTr1 paiementIS = declarationIs.getPaiementIS();
-//        GregorianCalendar gc = new GregorianCalendar();
-//        gc.setTime(paiementIS.getDateDernierDelai());
-//        gc.add(GregorianCalendar.MONTH, 3);
-//
-//        if (new Date().compareTo(paiementIS.getDateDernierDelai()) > 0) {
-//            //creation de penalite
-//
-//        }
-//        //puis on extraire le montant
-//        if (compteBanquaireFacade.crediter(compteBanquaire, declarationIs.getMontantIs() / 4) < 0) {
-//            return -2;//solde insuffisant !!!
-//        } else {
-//            compteBanquaireFacade.debiter(compteBanquaireFacade.findByDGI(), declarationIs.getMontantIs() / 4);
-//            paiementIS.setAccompteVerse(paiementIS.getAccompteVerse() + 1);
-//            paiementIS.setMtTotal(paiementIS.getMtTotal() + declarationIs.getMontantIs() / 4);
-//            paiementIS.setDatePaiement(new Date());
-//            paiementIS.setDateDernierDelai(gc.getTime());
-//            edit(declarationIs);
-//            paiementISFacade.edit(paiementIS);
-//        }
-//        return 1;
-//    }
+    private PaiementIS paiementApayer(DeclarationIs declarationIs) {
+        int accompte = declarationIs.getNbAccomptePaye();
+        PaiementIS paiementIS;
+        switch (accompte) {
+            case 0:
+                return declarationIs.getPaiementISs().get(1);
+            case 1:
+                return declarationIs.getPaiementISs().get(2);
+            case 2:
+                return declarationIs.getPaiementISs().get(3);
+            case 3:
+                return declarationIs.getPaiementISs().get(4);
+        }
+        return null;
+    }
+
+    private void appliquerPenalitePrPaiement(PaiementIS paiementIS) {
+        if (new Date().compareTo(paiementIS.getDateDernierDelai()) > 0) {
+            //chercher les anciens penalits + creation de penalite+calcul de mt de retard
+            paiementIS.setMtRetard(Float.NaN);
+
+        }
+        paiementIS.setMtTotal(paiementIS.getMtBase() + paiementIS.getMtRetard());
+    }
+
+    private boolean testParamForPayer(DeclarationIs declarationIs, CompteBanquaire compteBanquaire) {
+        if (declarationIs == null || compteBanquaire == null || !compteBanquaireFacade.findBySociete(declarationIs.getSociete()).contains(compteBanquaire)) {
+            return true;
+        }
+        return false;
+    }
+
     public int modify(DeclarationIs declarationIs, List<ExerciceIS> nvExerciceISs) {
         if (declarationIs == null || nvExerciceISs == null || nvExerciceISs.isEmpty()) {
             return -1;
         } else if (declarationIs.getEtat() == 2) {
             return -2;
-            //cette declaration est déja paye c'est fini !! mais l adim de sys peut le modifier mais on va voir
         }
         delete(declarationIs);
         return save(nvExerciceISs);
@@ -204,9 +214,7 @@ public class DeclarationIsFacade extends AbstractFacade<DeclarationIs> {
             ExerciceIS anExerciceIS = anExerciceISs.get(i);
             exerciceISFacade.remove(anExerciceIS);
         }
-        //ne faut pas supp la decl ,supp paiement d'abord ms c'est pas logique!!
-        //alors je le modifier ;)//suppri nsowel lostaad
-//        paiementISFacade.deleteByDeclarationIS(declarationIs);
+        paiementISFacade.deleteByDeclarationIS(declarationIs);
         remove(declarationIs);
     }
 }

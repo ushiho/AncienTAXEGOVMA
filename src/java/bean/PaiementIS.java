@@ -12,7 +12,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 
 /**
@@ -20,7 +19,7 @@ import javax.persistence.Temporal;
  * @author User
  */
 @Entity
-public class PaiementISTr1 implements Serializable {
+public class PaiementIS implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -39,14 +38,14 @@ public class PaiementISTr1 implements Serializable {
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date dateDernierDelai;
 
-    public PaiementISTr1() {
+    public PaiementIS() {
     }
 
-    public PaiementISTr1(Long id) {
+    public PaiementIS(Long id) {
         this.id = id;
     }
 
-    public PaiementISTr1(int accompteVerse, Date datePaiement, Date dateDernierDelai) {
+    public PaiementIS(int accompteVerse, Date datePaiement, Date dateDernierDelai) {
         this.accompteVerse = accompteVerse;
         this.datePaiement = datePaiement;
         this.dateDernierDelai = dateDernierDelai;
@@ -129,10 +128,10 @@ public class PaiementISTr1 implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof PaiementISTr1)) {
+        if (!(object instanceof PaiementIS)) {
             return false;
         }
-        PaiementISTr1 other = (PaiementISTr1) object;
+        PaiementIS other = (PaiementIS) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }

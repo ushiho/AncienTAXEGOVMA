@@ -24,6 +24,21 @@ public class DateDernierDelai implements Serializable {
     private Long id;
     private int mois;
     private int jour;
+    private int accompteAverse; // 1 , 2 ,3 ,4
+    private int type;//1:date de dernier delai de declaration / 2 de paiement
+
+    public DateDernierDelai() {
+    }
+
+    public DateDernierDelai(Long id) {
+        this.id = id;
+    }
+
+    public DateDernierDelai(int mois, int jour, int accompteAverse) {
+        this.mois = mois;
+        this.jour = jour;
+        this.accompteAverse = accompteAverse;
+    }
 
     public Long getId() {
         return id;
@@ -47,6 +62,22 @@ public class DateDernierDelai implements Serializable {
 
     public void setJour(int jour) {
         this.jour = jour;
+    }
+
+    public int getAccompteAverse() {
+        return accompteAverse;
+    }
+
+    public void setAccompteAverse(int accompteAverse) {
+        this.accompteAverse = accompteAverse;
+    }
+
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
     }
 
     @Override

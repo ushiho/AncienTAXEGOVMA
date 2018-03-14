@@ -28,5 +28,9 @@ public class DateDernierDelaiFacade extends AbstractFacade<DateDernierDelai> {
     public DateDernierDelaiFacade() {
         super(DateDernierDelai.class);
     }
-    
+
+    public DateDernierDelai findDatePaiementByAccompte(int accompte) {
+        String req = "SELECT d FROM DateDernierDelai d WHERE d.type = '1' AND d.accompteAverse = '" + accompte + "'";
+        return getUniqueResult(req);
+    }
 }

@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
@@ -23,6 +25,8 @@ public class Societe implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long id;
     private long idFiscal;//generer par dgi
     private String password;//genere par dgi
     private String raisonSociale;
@@ -39,14 +43,6 @@ public class Societe implements Serializable {
     @OneToMany(mappedBy = "societe")
     private List<Employe> employes;
 
-    public long getIdFiscal() {
-        return idFiscal;
-    }
-
-    public void setIdFiscal(long idFiscal) {
-        this.idFiscal = idFiscal;
-    }
-
     public Societe(String raisonSociale, String numTele, String numFax, String email) {
         this.raisonSociale = raisonSociale;
         this.numTele = numTele;
@@ -54,11 +50,32 @@ public class Societe implements Serializable {
         this.email = email;
     }
 
+    public Societe(long idFiscal, String password) {
+        this.idFiscal = idFiscal;
+        this.password = password;
+    }
+
     public Societe(long id) {
         this.idFiscal = id;
     }
 
     public Societe() {
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public long getIdFiscal() {
+        return idFiscal;
+    }
+
+    public void setIdFiscal(long idFiscal) {
+        this.idFiscal = idFiscal;
     }
 
     public String getRaisonSociale() {

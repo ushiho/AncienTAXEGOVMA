@@ -30,18 +30,25 @@ public class EmailFacade extends AbstractFacade<Email> {
         super(Email.class);
     }
 
-    public Email creerMsgGenererPass(Employe employe) {
-        Email email = findByType(2);
+    public Email creerMsgGenererPass(String login, String pass, int type) {
+        Email email = findByType(type);
         email.setContenu(email.getContenu()
-                + ", Votre login :'" + employe.getLogin() + "' , mot de passe : '" + employe.getMotDePasse() + "'");
+                + ", Votre login :'" + login + "' , mot de passe : '" + pass + "'");
         return email;
     }
 
-    public Email creerMsgResetPass(Employe employe) {
-        Email email = findByType(3);
-        email.setContenu(email.getContenu()
-                + ", Votre login :'" + employe.getLogin() + "' , mot de passe restauré : '" + employe.getMotDePasse() + "'");
-        return email;
+    public int save(Email email) {
+        if (email != null) {
+            create(email);
+            return 1;
+        }
+        return -1;
+    }
+
+    public void modify(Email anEmail, Email nvEmail) {
+    }
+
+    public void delete(Email Email) {
     }
 
     public Email findByType(int type) {

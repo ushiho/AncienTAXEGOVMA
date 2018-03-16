@@ -28,5 +28,5 @@ public class DgiFacade extends AbstractFacade<Dgi> {
     public DgiFacade() {
         super(Dgi.class);
     }
-    
+
 }

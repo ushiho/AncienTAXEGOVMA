@@ -32,12 +32,16 @@ public class SocieteFacade extends AbstractFacade<Societe> {
     }
 
     public boolean exonerer(Societe societe) {
-        if (find(societe.getIdFiscal()) == null) {
+        if (findByIdFiscal(societe.getIdFiscal()) == null) {
             return false;
         }
         GregorianCalendar gc = new GregorianCalendar();
         gc.setTime(societe.getDateCreation());
         gc.add(GregorianCalendar.MONTH, 60);
         return new Date().compareTo(gc.getTime()) <= 0;
+    }
+
+    public Societe findByIdFiscal(long idFiscal) {
+        return getUniqueResult("SELECT s FROM Societe s WHERE s.idFiscal = '" + idFiscal + "'");
     }
 }

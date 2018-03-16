@@ -26,9 +26,6 @@ public class EmployeFacade extends AbstractFacade<Employe> {
 
     private PrimitiveIterator.OfDouble randomIterator;
     private SHA1Hash sHA1Hash;
-    private static final String ALPHA_CAPS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    private static final String ALPHA = "abcdefghijklmnopqrstuvwxyz";
-    private static final String NUMERIC = "0123456789";
     private PassUtil passUtil;
     private EmailUtil emailUtil;
 
@@ -92,7 +89,7 @@ public class EmployeFacade extends AbstractFacade<Employe> {
             return -1;
         }
         setPassAndLogin(utilisateur);
-        Email email = emailFacade.creerMsgGenererPass(utilisateur);
+        Email email = emailFacade.creerMsgGenererPass(utilisateur.getLogin(), utilisateur.getMotDePasse(), 1);
         if (emailUtil.sendEmail(email, utilisateur) < 0) {
             return -2;
         }
@@ -102,10 +99,10 @@ public class EmployeFacade extends AbstractFacade<Employe> {
     }
 
     private void setPassAndLogin(Employe utilisateur) {
-        String login = passUtil.generate(6, NUMERIC + ALPHA + ALPHA_CAPS);
-        String pass = passUtil.generatePassAndHash(6, ALPHA + ALPHA_CAPS + NUMERIC);
+        String login = passUtil.generate(12, 1);
+        String pass = passUtil.generatePassAndHash(6, 4);
         while (findByLogin(login) != null) {
-            login = passUtil.generatePassAndHash(12, NUMERIC);
+            login = passUtil.generatePassAndHash(12, 1);
         }
         utilisateur.setMotDePasse(pass);
         utilisateur.setLogin(login);
@@ -129,8 +126,8 @@ public class EmployeFacade extends AbstractFacade<Employe> {
         if (find(utilisateur.getId()) == null) {
             return -1;
         }
-        utilisateur.setMotDePasse(passUtil.generatePassAndHash(6, NUMERIC + ALPHA + ALPHA_CAPS));
-        Email email = emailFacade.creerMsgResetPass(utilisateur);
+        utilisateur.setMotDePasse(passUtil.generatePassAndHash(6, 4));
+        Email email = emailFacade.creerMsgGenererPass(utilisateur.getLogin(), utilisateur.getMotDePasse(), 3);
         if (emailUtil.sendEmail(email, utilisateur) < 0) {
             return -1;
         }
@@ -138,7 +135,7 @@ public class EmployeFacade extends AbstractFacade<Employe> {
     }
 
     public int deleteFromSimplSer(Employe contribuable, Employe utilisateur) {
-        if (contribuable == null || contribuable.getDroitFiscale() != 0 || find(utilisateur.getId()) == null) {
+        if (testParams(find(utilisateur.getId()), contribuable)) {
             return -1; //c'est pas un contri , 
         }
         remove(utilisateur);
@@ -165,8 +162,7 @@ public class EmployeFacade extends AbstractFacade<Employe> {
     }
 
     public Employe findByLogin(String login) {
-        String req = "SELECT u FROM Utilisateur u WHERE u.login like '" + login + "'";
-        return getUniqueResult(req);
+        return getUniqueResult("SELECT u FROM Utilisateur u WHERE u.login like '" + login + "'");
     }
 
     public int deleteBySociete(Societe societe) {

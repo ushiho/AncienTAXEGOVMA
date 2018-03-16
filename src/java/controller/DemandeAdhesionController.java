@@ -1,9 +1,9 @@
 package controller;
 
-import bean.Societe;
+import bean.DemandeAdhesion;
 import controller.util.JsfUtil;
 import controller.util.JsfUtil.PersistAction;
-import service.SocieteFacade;
+import service.DemandeAdhesionFacade;
 
 import java.io.Serializable;
 import java.util.List;
@@ -19,23 +19,23 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
-@Named("societeController")
+@Named("demandeAdhesionController")
 @SessionScoped
-public class SocieteController implements Serializable {
+public class DemandeAdhesionController implements Serializable {
 
     @EJB
-    private service.SocieteFacade ejbFacade;
-    private List<Societe> items = null;
-    private Societe selected;
+    private service.DemandeAdhesionFacade ejbFacade;
+    private List<DemandeAdhesion> items = null;
+    private DemandeAdhesion selected;
 
-    public SocieteController() {
+    public DemandeAdhesionController() {
     }
 
-    public Societe getSelected() {
+    public DemandeAdhesion getSelected() {
         return selected;
     }
 
-    public void setSelected(Societe selected) {
+    public void setSelected(DemandeAdhesion selected) {
         this.selected = selected;
     }
 
@@ -45,36 +45,36 @@ public class SocieteController implements Serializable {
     protected void initializeEmbeddableKey() {
     }
 
-    private SocieteFacade getFacade() {
+    private DemandeAdhesionFacade getFacade() {
         return ejbFacade;
     }
 
-    public Societe prepareCreate() {
-        selected = new Societe();
+    public DemandeAdhesion prepareCreate() {
+        selected = new DemandeAdhesion();
         initializeEmbeddableKey();
         return selected;
     }
 
     public void create() {
-        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("SocieteCreated"));
+        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("DemandeAdhesionCreated"));
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
 
     public void update() {
-        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("SocieteUpdated"));
+        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("DemandeAdhesionUpdated"));
     }
 
     public void destroy() {
-        persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle").getString("SocieteDeleted"));
+        persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle").getString("DemandeAdhesionDeleted"));
         if (!JsfUtil.isValidationFailed()) {
             selected = null; // Remove selection
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
 
-    public List<Societe> getItems() {
+    public List<DemandeAdhesion> getItems() {
         if (items == null) {
             items = getFacade().findAll();
         }
@@ -109,38 +109,38 @@ public class SocieteController implements Serializable {
         }
     }
 
-    public Societe getSociete(long id) {
+    public DemandeAdhesion getDemandeAdhesion(java.lang.Long id) {
         return getFacade().find(id);
     }
 
-    public List<Societe> getItemsAvailableSelectMany() {
+    public List<DemandeAdhesion> getItemsAvailableSelectMany() {
         return getFacade().findAll();
     }
 
-    public List<Societe> getItemsAvailableSelectOne() {
+    public List<DemandeAdhesion> getItemsAvailableSelectOne() {
         return getFacade().findAll();
     }
 
-    @FacesConverter(forClass = Societe.class)
-    public static class SocieteControllerConverter implements Converter {
+    @FacesConverter(forClass = DemandeAdhesion.class)
+    public static class DemandeAdhesionControllerConverter implements Converter {
 
         @Override
         public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
             if (value == null || value.length() == 0) {
                 return null;
             }
-            SocieteController controller = (SocieteController) facesContext.getApplication().getELResolver().
-                    getValue(facesContext.getELContext(), null, "societeController");
-            return controller.getSociete(getKey(value));
+            DemandeAdhesionController controller = (DemandeAdhesionController) facesContext.getApplication().getELResolver().
+                    getValue(facesContext.getELContext(), null, "demandeAdhesionController");
+            return controller.getDemandeAdhesion(getKey(value));
         }
 
-        long getKey(String value) {
-            long key;
-            key = Long.parseLong(value);
+        java.lang.Long getKey(String value) {
+            java.lang.Long key;
+            key = Long.valueOf(value);
             return key;
         }
 
-        String getStringKey(long value) {
+        String getStringKey(java.lang.Long value) {
             StringBuilder sb = new StringBuilder();
             sb.append(value);
             return sb.toString();
@@ -151,11 +151,11 @@ public class SocieteController implements Serializable {
             if (object == null) {
                 return null;
             }
-            if (object instanceof Societe) {
-                Societe o = (Societe) object;
+            if (object instanceof DemandeAdhesion) {
+                DemandeAdhesion o = (DemandeAdhesion) object;
                 return getStringKey(o.getId());
             } else {
-                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), Societe.class.getName()});
+                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), DemandeAdhesion.class.getName()});
                 return null;
             }
         }

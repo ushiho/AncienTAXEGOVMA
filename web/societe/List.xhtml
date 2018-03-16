@@ -19,7 +19,7 @@
                     <p:dataTable id="datalist" value="#{societeController.items}" var="item"
                                  selectionMode="single" selection="#{societeController.selected}"
                                  paginator="true"
-                                 rowKey="#{item.idFiscal}"
+                                 rowKey="#{item.id}"
                                  rows="10"
                                  rowsPerPageTemplate="10,20,30,40,50"
                                  >
@@ -27,6 +27,12 @@
                         <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
                         <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
 
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListSocieteTitle_id}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.id}"/>
+                        </p:column>
                         <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListSocieteTitle_idFiscal}"/>

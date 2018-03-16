@@ -8,34 +8,34 @@
 
     <ui:composition>
 
-        <p:dialog id="PaiementISTr1EditDlg" widgetVar="PaiementISTr1EditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditPaiementISTr1Title}">
-            <h:form id="PaiementISTr1EditForm">
+        <p:dialog id="PaiementISEditDlg" widgetVar="PaiementISEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditPaiementISTitle}">
+            <h:form id="PaiementISEditForm">
                 <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{paiementISTr1Controller.selected != null}">
-                        <p:outputLabel value="#{bundle.EditPaiementISTr1Label_id}" for="id" />
-                        <p:inputText id="id" value="#{paiementISTr1Controller.selected.id}" title="#{bundle.EditPaiementISTr1Title_id}" />
-                        <p:outputLabel value="#{bundle.EditPaiementISTr1Label_mtTotal}" for="mtTotal" />
-                        <p:inputText id="mtTotal" value="#{paiementISTr1Controller.selected.mtTotal}" title="#{bundle.EditPaiementISTr1Title_mtTotal}" />
-                        <p:outputLabel value="#{bundle.EditPaiementISTr1Label_datePaiement}" for="datePaiement" />
-                        <p:calendar id="datePaiement" pattern="MM/dd/yyyy" value="#{paiementISTr1Controller.selected.datePaiement}" title="#{bundle.EditPaiementISTr1Title_datePaiement}"  showOn="button"/>
-                        <p:outputLabel value="#{bundle.EditPaiementISTr1Label_accompteVerse}" for="accompteVerse" />
-                        <p:inputText id="accompteVerse" value="#{paiementISTr1Controller.selected.accompteVerse}" title="#{bundle.EditPaiementISTr1Title_accompteVerse}" />
-                        <p:outputLabel value="#{bundle.EditPaiementISTr1Label_declarationIs}" for="declarationIs" />
-                        <p:selectOneMenu id="declarationIs" value="#{paiementISTr1Controller.selected.declarationIs}" >
+                    <p:panelGrid columns="2" rendered="#{paiementISController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditPaiementISLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{paiementISController.selected.id}" title="#{bundle.EditPaiementISTitle_id}" />
+                        <p:outputLabel value="#{bundle.EditPaiementISLabel_mtTotal}" for="mtTotal" />
+                        <p:inputText id="mtTotal" value="#{paiementISController.selected.mtTotal}" title="#{bundle.EditPaiementISTitle_mtTotal}" />
+                        <p:outputLabel value="#{bundle.EditPaiementISLabel_datePaiement}" for="datePaiement" />
+                        <p:calendar id="datePaiement" pattern="MM/dd/yyyy" value="#{paiementISController.selected.datePaiement}" title="#{bundle.EditPaiementISTitle_datePaiement}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditPaiementISLabel_accompteVerse}" for="accompteVerse" />
+                        <p:inputText id="accompteVerse" value="#{paiementISController.selected.accompteVerse}" title="#{bundle.EditPaiementISTitle_accompteVerse}" />
+                        <p:outputLabel value="#{bundle.EditPaiementISLabel_declarationIs}" for="declarationIs" />
+                        <p:selectOneMenu id="declarationIs" value="#{paiementISController.selected.declarationIs}" >
                             <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
                             <f:selectItems value="#{declarationIsController.itemsAvailableSelectOne}"
                                            var="declarationIsItem"
                                            itemValue="#{declarationIsItem}"/>
                         </p:selectOneMenu>
-                        <p:outputLabel value="#{bundle.EditPaiementISTr1Label_dateDernierDelai}" for="dateDernierDelai" />
-                        <p:calendar id="dateDernierDelai" pattern="MM/dd/yyyy" value="#{paiementISTr1Controller.selected.dateDernierDelai}" title="#{bundle.EditPaiementISTr1Title_dateDernierDelai}"  showOn="button"/>
-                        <p:outputLabel value="#{bundle.EditPaiementISTr1Label_mtBase}" for="mtBase" />
-                        <p:inputText id="mtBase" value="#{paiementISTr1Controller.selected.mtBase}" title="#{bundle.EditPaiementISTr1Title_mtBase}" />
-                        <p:outputLabel value="#{bundle.EditPaiementISTr1Label_mtRetard}" for="mtRetard" />
-                        <p:inputText id="mtRetard" value="#{paiementISTr1Controller.selected.mtRetard}" title="#{bundle.EditPaiementISTr1Title_mtRetard}" />
+                        <p:outputLabel value="#{bundle.EditPaiementISLabel_dateDernierDelai}" for="dateDernierDelai" />
+                        <p:calendar id="dateDernierDelai" pattern="MM/dd/yyyy" value="#{paiementISController.selected.dateDernierDelai}" title="#{bundle.EditPaiementISTitle_dateDernierDelai}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditPaiementISLabel_mtBase}" for="mtBase" />
+                        <p:inputText id="mtBase" value="#{paiementISController.selected.mtBase}" title="#{bundle.EditPaiementISTitle_mtBase}" />
+                        <p:outputLabel value="#{bundle.EditPaiementISLabel_mtRetard}" for="mtRetard" />
+                        <p:inputText id="mtRetard" value="#{paiementISController.selected.mtRetard}" title="#{bundle.EditPaiementISTitle_mtRetard}" />
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{paiementISTr1Controller.update}" value="#{bundle.Save}" update="display,:PaiementISTr1ListForm:datalist,:growl" oncomplete="handleSubmit(args, 'PaiementISTr1EditDialog');"/>
-                    <p:commandButton value="#{bundle.Cancel}" onclick="PaiementISTr1EditDialog.hide()"/>
+                    <p:commandButton actionListener="#{paiementISController.update}" value="#{bundle.Save}" update="display,:PaiementISListForm:datalist,:growl" oncomplete="handleSubmit(args, 'PaiementISEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="PaiementISEditDialog.hide()"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

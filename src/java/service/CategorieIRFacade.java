@@ -5,6 +5,7 @@
  */
 package service;
 
+import service.*;
 import bean.CategorieIR;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;

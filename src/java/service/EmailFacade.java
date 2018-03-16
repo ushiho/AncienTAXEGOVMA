@@ -5,6 +5,7 @@
  */
 package service;
 
+import service.*;
 import bean.Email;
 import bean.Employe;
 import javax.ejb.Stateless;

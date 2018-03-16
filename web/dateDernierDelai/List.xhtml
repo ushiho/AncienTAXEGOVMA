@@ -45,6 +45,18 @@
                             </f:facet>
                             <h:outputText value="#{item.jour}"/>
                         </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDateDernierDelaiTitle_accompteAverse}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.accompteAverse}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDateDernierDelaiTitle_type}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.type}"/>
+                        </p:column>
                         <f:facet name="footer">
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{dateDernierDelaiController.prepareCreate}" update=":DateDernierDelaiCreateForm" oncomplete="PF('DateDernierDelaiCreateDialog').show()"/>
                             <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":DateDernierDelaiViewForm" oncomplete="PF('DateDernierDelaiViewDialog').show()" disabled="#{empty dateDernierDelaiController.selected}"/>

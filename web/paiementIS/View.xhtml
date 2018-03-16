@@ -8,32 +8,32 @@
 
     <ui:composition>
 
-        <p:dialog id="PaiementISTr1ViewDlg" widgetVar="PaiementISTr1ViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewPaiementISTr1Title}">
-            <h:form id="PaiementISTr1ViewForm">
+        <p:dialog id="PaiementISViewDlg" widgetVar="PaiementISViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewPaiementISTitle}">
+            <h:form id="PaiementISViewForm">
                 <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{paiementISTr1Controller.selected != null}">
-                        <h:outputText value="#{bundle.ViewPaiementISTr1Label_id}"/>
-                        <h:outputText value="#{paiementISTr1Controller.selected.id}" title="#{bundle.ViewPaiementISTr1Title_id}"/>
-                        <h:outputText value="#{bundle.ViewPaiementISTr1Label_mtTotal}"/>
-                        <h:outputText value="#{paiementISTr1Controller.selected.mtTotal}" title="#{bundle.ViewPaiementISTr1Title_mtTotal}"/>
-                        <h:outputText value="#{bundle.ViewPaiementISTr1Label_datePaiement}"/>
-                        <h:outputText value="#{paiementISTr1Controller.selected.datePaiement}" title="#{bundle.ViewPaiementISTr1Title_datePaiement}">
+                    <p:panelGrid columns="2" rendered="#{paiementISController.selected != null}">
+                        <h:outputText value="#{bundle.ViewPaiementISLabel_id}"/>
+                        <h:outputText value="#{paiementISController.selected.id}" title="#{bundle.ViewPaiementISTitle_id}"/>
+                        <h:outputText value="#{bundle.ViewPaiementISLabel_mtTotal}"/>
+                        <h:outputText value="#{paiementISController.selected.mtTotal}" title="#{bundle.ViewPaiementISTitle_mtTotal}"/>
+                        <h:outputText value="#{bundle.ViewPaiementISLabel_datePaiement}"/>
+                        <h:outputText value="#{paiementISController.selected.datePaiement}" title="#{bundle.ViewPaiementISTitle_datePaiement}">
                             <f:convertDateTime pattern="MM/dd/yyyy" />
                         </h:outputText>
-                        <h:outputText value="#{bundle.ViewPaiementISTr1Label_accompteVerse}"/>
-                        <h:outputText value="#{paiementISTr1Controller.selected.accompteVerse}" title="#{bundle.ViewPaiementISTr1Title_accompteVerse}"/>
-                        <h:outputText value="#{bundle.ViewPaiementISTr1Label_declarationIs}"/>
-                        <h:outputText value="#{paiementISTr1Controller.selected.declarationIs}" title="#{bundle.ViewPaiementISTr1Title_declarationIs}"/>
-                        <h:outputText value="#{bundle.ViewPaiementISTr1Label_dateDernierDelai}"/>
-                        <h:outputText value="#{paiementISTr1Controller.selected.dateDernierDelai}" title="#{bundle.ViewPaiementISTr1Title_dateDernierDelai}">
+                        <h:outputText value="#{bundle.ViewPaiementISLabel_accompteVerse}"/>
+                        <h:outputText value="#{paiementISController.selected.accompteVerse}" title="#{bundle.ViewPaiementISTitle_accompteVerse}"/>
+                        <h:outputText value="#{bundle.ViewPaiementISLabel_declarationIs}"/>
+                        <h:outputText value="#{paiementISController.selected.declarationIs}" title="#{bundle.ViewPaiementISTitle_declarationIs}"/>
+                        <h:outputText value="#{bundle.ViewPaiementISLabel_dateDernierDelai}"/>
+                        <h:outputText value="#{paiementISController.selected.dateDernierDelai}" title="#{bundle.ViewPaiementISTitle_dateDernierDelai}">
                             <f:convertDateTime pattern="MM/dd/yyyy" />
                         </h:outputText>
-                        <h:outputText value="#{bundle.ViewPaiementISTr1Label_mtBase}"/>
-                        <h:outputText value="#{paiementISTr1Controller.selected.mtBase}" title="#{bundle.ViewPaiementISTr1Title_mtBase}"/>
-                        <h:outputText value="#{bundle.ViewPaiementISTr1Label_mtRetard}"/>
-                        <h:outputText value="#{paiementISTr1Controller.selected.mtRetard}" title="#{bundle.ViewPaiementISTr1Title_mtRetard}"/>
+                        <h:outputText value="#{bundle.ViewPaiementISLabel_mtBase}"/>
+                        <h:outputText value="#{paiementISController.selected.mtBase}" title="#{bundle.ViewPaiementISTitle_mtBase}"/>
+                        <h:outputText value="#{bundle.ViewPaiementISLabel_mtRetard}"/>
+                        <h:outputText value="#{paiementISController.selected.mtRetard}" title="#{bundle.ViewPaiementISTitle_mtRetard}"/>
                     </p:panelGrid>
-                    <p:commandButton value="#{bundle.Close}" onclick="PaiementISTr1ViewDialog.hide()"/>
+                    <p:commandButton value="#{bundle.Close}" onclick="PaiementISViewDialog.hide()"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

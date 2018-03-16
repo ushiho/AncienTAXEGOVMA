@@ -5,6 +5,7 @@
  */
 package service;
 
+import service.*;
 import bean.DateDernierDelai;
 import bean.DeclarationIs;
 import bean.PaiementIS;

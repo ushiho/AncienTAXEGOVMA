@@ -32,10 +32,6 @@
                                            var="societeItem"
                                            itemValue="#{societeItem}"/>
                         </p:selectOneMenu>
-                        <p:outputLabel value="#{bundle.EditDgiLabel_email}" for="email" />
-                        <p:inputText id="email" value="#{dgiController.selected.email}" title="#{bundle.EditDgiTitle_email}" />
-                        <p:outputLabel value="#{bundle.EditDgiLabel_passOfEmail}" for="passOfEmail" />
-                        <p:inputText id="passOfEmail" value="#{dgiController.selected.passOfEmail}" title="#{bundle.EditDgiTitle_passOfEmail}" />
                     </p:panelGrid>
                     <p:commandButton actionListener="#{dgiController.update}" value="#{bundle.Save}" update="display,:DgiListForm:datalist,:growl" oncomplete="handleSubmit(args, 'DgiEditDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="DgiEditDialog.hide()"/>

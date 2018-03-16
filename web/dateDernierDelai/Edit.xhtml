@@ -18,6 +18,10 @@
                         <p:inputText id="mois" value="#{dateDernierDelaiController.selected.mois}" title="#{bundle.EditDateDernierDelaiTitle_mois}" />
                         <p:outputLabel value="#{bundle.EditDateDernierDelaiLabel_jour}" for="jour" />
                         <p:inputText id="jour" value="#{dateDernierDelaiController.selected.jour}" title="#{bundle.EditDateDernierDelaiTitle_jour}" />
+                        <p:outputLabel value="#{bundle.EditDateDernierDelaiLabel_accompteAverse}" for="accompteAverse" />
+                        <p:inputText id="accompteAverse" value="#{dateDernierDelaiController.selected.accompteAverse}" title="#{bundle.EditDateDernierDelaiTitle_accompteAverse}" />
+                        <p:outputLabel value="#{bundle.EditDateDernierDelaiLabel_type}" for="type" />
+                        <p:inputText id="type" value="#{dateDernierDelaiController.selected.type}" title="#{bundle.EditDateDernierDelaiTitle_type}" />
                     </p:panelGrid>
                     <p:commandButton actionListener="#{dateDernierDelaiController.update}" value="#{bundle.Save}" update="display,:DateDernierDelaiListForm:datalist,:growl" oncomplete="handleSubmit(args, 'DateDernierDelaiEditDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="DateDernierDelaiEditDialog.hide()"/>

@@ -5,6 +5,7 @@
  */
 package service;
 
+import service.*;
 import bean.Banque;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;

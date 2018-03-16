@@ -18,6 +18,10 @@
                         <p:inputText id="mois" value="#{dateDernierDelaiController.selected.mois}" title="#{bundle.CreateDateDernierDelaiTitle_mois}" />
                         <p:outputLabel value="#{bundle.CreateDateDernierDelaiLabel_jour}" for="jour" />
                         <p:inputText id="jour" value="#{dateDernierDelaiController.selected.jour}" title="#{bundle.CreateDateDernierDelaiTitle_jour}" />
+                        <p:outputLabel value="#{bundle.CreateDateDernierDelaiLabel_accompteAverse}" for="accompteAverse" />
+                        <p:inputText id="accompteAverse" value="#{dateDernierDelaiController.selected.accompteAverse}" title="#{bundle.CreateDateDernierDelaiTitle_accompteAverse}" />
+                        <p:outputLabel value="#{bundle.CreateDateDernierDelaiLabel_type}" for="type" />
+                        <p:inputText id="type" value="#{dateDernierDelaiController.selected.type}" title="#{bundle.CreateDateDernierDelaiTitle_type}" />
                     </p:panelGrid>
                     <p:commandButton actionListener="#{dateDernierDelaiController.create}" value="#{bundle.Save}" update="display,:DateDernierDelaiListForm:datalist,:growl" oncomplete="handleSubmit(args,'DateDernierDelaiCreateDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="DateDernierDelaiCreateDialog.hide()"/>

@@ -4,6 +4,7 @@
  */
 package service;
 
+import service.*;
 import bean.CategorieIS;
 import java.util.Date;
 import javax.ejb.Stateless;

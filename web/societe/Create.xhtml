@@ -12,6 +12,8 @@
             <h:form id="SocieteCreateForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{societeController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateSocieteLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{societeController.selected.id}" title="#{bundle.CreateSocieteTitle_id}" />
                         <p:outputLabel value="#{bundle.CreateSocieteLabel_idFiscal}" for="idFiscal" />
                         <p:inputText id="idFiscal" value="#{societeController.selected.idFiscal}" title="#{bundle.CreateSocieteTitle_idFiscal}" />
                         <p:outputLabel value="#{bundle.CreateSocieteLabel_raisonSociale}" for="raisonSociale" />

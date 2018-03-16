@@ -12,6 +12,8 @@
             <h:form id="SocieteEditForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{societeController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditSocieteLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{societeController.selected.id}" title="#{bundle.EditSocieteTitle_id}" />
                         <p:outputLabel value="#{bundle.EditSocieteLabel_idFiscal}" for="idFiscal" />
                         <p:inputText id="idFiscal" value="#{societeController.selected.idFiscal}" title="#{bundle.EditSocieteTitle_idFiscal}" />
                         <p:outputLabel value="#{bundle.EditSocieteLabel_raisonSociale}" for="raisonSociale" />

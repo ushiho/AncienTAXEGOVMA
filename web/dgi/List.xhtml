@@ -57,18 +57,6 @@
                             </f:facet>
                             <h:outputText value="#{item.societe}"/>
                         </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListDgiTitle_email}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.email}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListDgiTitle_passOfEmail}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.passOfEmail}"/>
-                        </p:column>
                         <f:facet name="footer">
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{dgiController.prepareCreate}" update=":DgiCreateForm" oncomplete="PF('DgiCreateDialog').show()"/>
                             <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":DgiViewForm" oncomplete="PF('DgiViewDialog').show()" disabled="#{empty dgiController.selected}"/>

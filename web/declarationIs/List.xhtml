@@ -83,6 +83,12 @@
                             </f:facet>
                             <h:outputText value="#{item.chiffreAffaire}"/>
                         </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDeclarationIsTitle_nbAccomptePaye}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.nbAccomptePaye}"/>
+                        </p:column>
                         <f:facet name="footer">
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{declarationIsController.prepareCreate}" update=":DeclarationIsCreateForm" oncomplete="PF('DeclarationIsCreateDialog').show()"/>
                             <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":DeclarationIsViewForm" oncomplete="PF('DeclarationIsViewDialog').show()" disabled="#{empty declarationIsController.selected}"/>

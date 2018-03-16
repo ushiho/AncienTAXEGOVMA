@@ -12,6 +12,8 @@
             <h:form id="SocieteViewForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{societeController.selected != null}">
+                        <h:outputText value="#{bundle.ViewSocieteLabel_id}"/>
+                        <h:outputText value="#{societeController.selected.id}" title="#{bundle.ViewSocieteTitle_id}"/>
                         <h:outputText value="#{bundle.ViewSocieteLabel_idFiscal}"/>
                         <h:outputText value="#{societeController.selected.idFiscal}" title="#{bundle.ViewSocieteTitle_idFiscal}"/>
                         <h:outputText value="#{bundle.ViewSocieteLabel_raisonSociale}"/>

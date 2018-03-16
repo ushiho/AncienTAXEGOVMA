@@ -5,6 +5,7 @@
  */
 package service;
 
+import service.*;
 import bean.Societe;
 import java.util.Date;
 import java.util.GregorianCalendar;

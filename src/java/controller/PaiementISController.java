@@ -19,7 +19,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
-@Named("paiementISTr1Controller")
+@Named("paiementISController")
 @SessionScoped
 public class PaiementISController implements Serializable {
 
@@ -56,18 +56,18 @@ public class PaiementISController implements Serializable {
     }
 
     public void create() {
-        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("PaiementISTr1Created"));
+        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("PaiementISCreated"));
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
 
     public void update() {
-        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("PaiementISTr1Updated"));
+        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("PaiementISUpdated"));
     }
 
     public void destroy() {
-        persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle").getString("PaiementISTr1Deleted"));
+        persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle").getString("PaiementISDeleted"));
         if (!JsfUtil.isValidationFailed()) {
             selected = null; // Remove selection
             items = null;    // Invalidate list of items to trigger re-query.
@@ -109,7 +109,7 @@ public class PaiementISController implements Serializable {
         }
     }
 
-    public PaiementIS getPaiementISTr1(java.lang.Long id) {
+    public PaiementIS getPaiementIS(java.lang.Long id) {
         return getFacade().find(id);
     }
 
@@ -122,7 +122,7 @@ public class PaiementISController implements Serializable {
     }
 
     @FacesConverter(forClass = PaiementIS.class)
-    public static class PaiementISTr1ControllerConverter implements Converter {
+    public static class PaiementISControllerConverter implements Converter {
 
         @Override
         public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
@@ -130,8 +130,8 @@ public class PaiementISController implements Serializable {
                 return null;
             }
             PaiementISController controller = (PaiementISController) facesContext.getApplication().getELResolver().
-                    getValue(facesContext.getELContext(), null, "paiementISTr1Controller");
-            return controller.getPaiementISTr1(getKey(value));
+                    getValue(facesContext.getELContext(), null, "paiementISController");
+            return controller.getPaiementIS(getKey(value));
         }
 
         java.lang.Long getKey(String value) {

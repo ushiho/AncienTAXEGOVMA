@@ -5,7 +5,6 @@
  */
 package service;
 
-import service.*;
 import bean.Email;
 import util.EmailUtil;
 import bean.Societe;

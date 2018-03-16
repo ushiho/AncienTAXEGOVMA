@@ -5,7 +5,6 @@
  */
 package service;
 
-import service.*;
 import bean.ExerciceIS;
 import java.util.List;
 import javax.ejb.Stateless;

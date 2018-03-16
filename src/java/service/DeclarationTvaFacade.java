@@ -5,7 +5,6 @@
  */
 package service;
 
-import service.*;
 import bean.DeclarationTva;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;

@@ -5,7 +5,6 @@
  */
 package service;
 
-import service.*;
 import bean.CompteBanquaire;
 import bean.Societe;
 import java.util.List;

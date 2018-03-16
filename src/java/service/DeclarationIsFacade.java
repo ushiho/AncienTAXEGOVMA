@@ -5,7 +5,6 @@
  */
 package service;
 
-import service.*;
 import bean.CompteBanquaire;
 import bean.DeclarationIs;
 import bean.ExerciceIS;

@@ -5,7 +5,6 @@
  */
 package service;
 
-import service.*;
 import bean.DemandeAdhesion;
 import bean.Email;
 import bean.Employe;

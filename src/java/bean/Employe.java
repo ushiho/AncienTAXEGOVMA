@@ -32,14 +32,14 @@ public class Employe implements Serializable {
     private String numTele;
     private String email;
     private String profession;
-    
+
     @ManyToOne
     private Societe societe;
     //pour un utili
-    private Long login;
+    private String login;
     private String motDePasse;
     private int droitFiscale;//1 , 2 , 3 , 0= tt les droits
-    
+
     public Employe() {
     }
 
@@ -123,11 +123,11 @@ public class Employe implements Serializable {
         this.societe = societe;
     }
 
-    public Long getLogin() {
+    public String getLogin() {
         return login;
     }
 
-    public void setLogin(Long login) {
+    public void setLogin(String login) {
         this.login = login;
     }
 

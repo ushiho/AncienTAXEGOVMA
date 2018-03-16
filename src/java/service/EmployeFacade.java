@@ -5,15 +5,17 @@
  */
 package service;
 
+import bean.Email;
+import util.EmailUtil;
 import bean.Societe;
 import bean.Employe;
 import java.util.PrimitiveIterator;
-import java.util.Random;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import org.commonutils.util.SHA1Hash;
+import util.PassUtil;
 
 /**
  *
@@ -27,6 +29,8 @@ public class EmployeFacade extends AbstractFacade<Employe> {
     private static final String ALPHA_CAPS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     private static final String ALPHA = "abcdefghijklmnopqrstuvwxyz";
     private static final String NUMERIC = "0123456789";
+    private PassUtil passUtil;
+    private EmailUtil emailUtil;
 
     @PersistenceContext(unitName = "TaxeGOVMAPU")
     private EntityManager em;
@@ -41,43 +45,37 @@ public class EmployeFacade extends AbstractFacade<Employe> {
     @EJB
     private EmployeFacade utilisateurFacade;
     @EJB
-    private SendEmail sendEmail;
+    private EmailFacade emailFacade;
 
     public EmployeFacade() {
         super(Employe.class);
-        randomIterator = new Random().doubles(10).iterator();
     }
 
-    public double newGenerate() {
-        return randomIterator.nextDouble();
+    public int sAdherer(Employe contribuable) {
+        if ((contribuable.getLogin()).length() == 12) {
+            return testIDFiscalEtPass(contribuable);
+        }
+        return -3;
+    }
+
+    private int testIDFiscalEtPass(Employe contribuable) {
+        Societe societe = societeFacade.find(contribuable.getLogin());
+        if (societe == null) {
+            return -1;
+        } else if (!passUtil.testTwoPasswords(contribuable.getMotDePasse(), societe.getPassword())) {
+            return -2;
+        }
+        return 1;
     }
 
     public int seConnecter(Employe utilisateur) {
-        if ((utilisateur.getLogin() + "").length() == 10) {
-            //donc cet un idFiscal et pas un tel login pour un utili qcq
-            long idFiscal = utilisateur.getLogin();
-            Societe societe = societeFacade.find(idFiscal);
-            if (societe == null) {
-                return -1;
-                //cette societe n'existe pas !
-                //les soci sont deja enregistrer ds la bd de DGI
-            } else if (!sHA1Hash.getStringHash(utilisateur.getMotDePasse()).equals(sHA1Hash.getStringHash(societe.getPassword()))) {
-                return -2;
-                //le mot de pass entreé par contribuable 
-                //c'est pas le m generee et existe dans
-                //la BD de DGI 
-            } else {
-                return 1;//c est un contribuable
-            }
+        Employe existe = findByLogin(utilisateur.getLogin());
+        if (existe == null) {
+            return -1;
+        } else if (!passUtil.testTwoPasswords(utilisateur.getMotDePasse(), existe.getMotDePasse())) {
+            return -2;
         } else {
-            Employe existe = findByLogin(utilisateur.getLogin());
-            if (existe == null) {
-                return -1;
-            } else if (!sHA1Hash.getStringHash(utilisateur.getMotDePasse()).equals(sHA1Hash.getStringHash(utilisateur.getMotDePasse()))) {
-                return -2;
-            } else {
-                return 2;//c est un utili normal
-            }
+            return 1;
         }
     }
 
@@ -90,26 +88,31 @@ public class EmployeFacade extends AbstractFacade<Employe> {
     }
 
     public int addUtilisateur(Employe utilisateur, Employe contribuable) {
-        if (utilisateur == null || contribuable == null || contribuable.getDroitFiscale() != 0) {
-            return -1; //vous n avez pas le droit
-        } else {
-            //service pour generer passs + login + envoyer vers email + creation ds BD
-            Long login = new Long(sendEmail.generatePassword(12, NUMERIC));
-            String pass = sendEmail.generatePassword(6, ALPHA + ALPHA_CAPS + NUMERIC);
-            while (findByLogin(login) != null) {
-                login = new Long(sendEmail.generatePassword(12, NUMERIC));
-            }
-            String message = "Salut ,Mr " + utilisateur.getNom() + " , le Mr " + contribuable.getNom() + " vous ajoutée comme "
-                    + " un " + droit(utilisateur.getDroitFiscale()) + " , à son compte Simpl-Téléservices , Alors votre "
-                    + " login est '" + login + "' et le mot de passe est '" + pass + "'";
-            utilisateur.setMotDePasse(sHA1Hash.getStringHash(pass));
-            utilisateur.setLogin(login);
-            if (sendEmail.sendEmail(utilisateur.getEmail(), "Ajout au Simpl-Téléservices", message) < 0) {
-                return -2;
-            }
-            create(utilisateur);
-            return 1;
+        if (testParams(utilisateur, contribuable)) {
+            return -1;
         }
+        setPassAndLogin(utilisateur);
+        Email email = emailFacade.creerMsgGenererPass(utilisateur);
+        if (emailUtil.sendEmail(email, utilisateur) < 0) {
+            return -2;
+        }
+        create(utilisateur);
+        return 1;
+
+    }
+
+    private void setPassAndLogin(Employe utilisateur) {
+        String login = passUtil.generate(6, NUMERIC + ALPHA + ALPHA_CAPS);
+        String pass = passUtil.generatePassAndHash(6, ALPHA + ALPHA_CAPS + NUMERIC);
+        while (findByLogin(login) != null) {
+            login = passUtil.generatePassAndHash(12, NUMERIC);
+        }
+        utilisateur.setMotDePasse(pass);
+        utilisateur.setLogin(login);
+    }
+
+    private boolean testParams(Employe utilisateur, Employe contribuable) {
+        return utilisateur == null || contribuable == null || contribuable.getDroitFiscale() != 0;
     }
 
     public int modify(Employe nvUtilisateur, Employe anUtilisateur) {
@@ -126,10 +129,9 @@ public class EmployeFacade extends AbstractFacade<Employe> {
         if (find(utilisateur.getId()) == null) {
             return -1;
         }
-        String pass = sendEmail.generatePassword(6, NUMERIC);
-        String message = "Salut Mr " + utilisateur.getNom() + " vous avez demander de restaurer votre mot de passe ,"
-                + " Voila le nouveau c'est : '" + pass + "'";
-        if (sendEmail.sendEmail(utilisateur.getEmail(), "Changemant de mot de passe", message) < 0) {
+        utilisateur.setMotDePasse(passUtil.generatePassAndHash(6, NUMERIC + ALPHA + ALPHA_CAPS));
+        Email email = emailFacade.creerMsgResetPass(utilisateur);
+        if (emailUtil.sendEmail(email, utilisateur) < 0) {
             return -1;
         }
         return 1;
@@ -162,7 +164,7 @@ public class EmployeFacade extends AbstractFacade<Employe> {
         return droit;
     }
 
-    public Employe findByLogin(Long login) {
+    public Employe findByLogin(String login) {
         String req = "SELECT u FROM Utilisateur u WHERE u.login like '" + login + "'";
         return getUniqueResult(req);
     }

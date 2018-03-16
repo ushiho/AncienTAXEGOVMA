@@ -6,11 +6,14 @@
 package bean;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 /**
@@ -30,8 +33,8 @@ public class Dgi implements Serializable {
     private CompteBanquaire compteBanquaire;
     @ManyToOne
     private Societe societe;
-    private String email;
-    private String passOfEmail;
+    @OneToMany(mappedBy = "dgi")
+    private List<Email> emails;
 
     public Dgi() {
     }
@@ -92,20 +95,15 @@ public class Dgi implements Serializable {
         this.societe = societe;
     }
 
-    public String getEmail() {
-        return email;
+    public List<Email> getEmails() {
+        if (emails == null) {
+            emails = new ArrayList();
+        }
+        return emails;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPassOfEmail() {
-        return passOfEmail;
-    }
-
-    public void setPassOfEmail(String passOfEmail) {
-        this.passOfEmail = passOfEmail;
+    public void setEmails(List<Email> emails) {
+        this.emails = emails;
     }
 
     @Override

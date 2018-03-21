@@ -1,8 +1,6 @@
 package util;
 
 import bean.Email;
-import static bean.Email_.contenu;
-import static bean.Email_.subject;
 import bean.Employe;
 import java.util.Date;
 import java.util.Properties;

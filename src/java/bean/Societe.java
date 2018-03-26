@@ -33,7 +33,8 @@ public class Societe implements Serializable {
     private String numTele;
     private String numFix;
     private String email;
-    private Float deficit;//resultat fiscal < 0
+    private Float deficitIS;//resultat fiscal < 0
+    private Float deficitTVA;//resultat fiscal < 0
 
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date dateCreation;//1,2,...5
@@ -129,15 +130,15 @@ public class Societe implements Serializable {
         this.dateCreation = dateCreation;
     }
 
-    public Float getDeficit() {
-        if (deficit == null) {
-            deficit = 0f;
+    public Float getDeficitIS() {
+        if (deficitIS == null) {
+            deficitIS = 0f;
         }
-        return deficit;
+        return deficitIS;
     }
 
-    public void setDeficit(Float deficit) {
-        this.deficit = deficit;
+    public void setDeficitIS(Float deficitIS) {
+        this.deficitIS = deficitIS;
     }
 
     public String getPassword() {
@@ -157,6 +158,14 @@ public class Societe implements Serializable {
 
     public void setEmployes(List<Employe> employes) {
         this.employes = employes;
+    }
+
+    public Float getDeficitTVA() {
+        return deficitTVA;
+    }
+
+    public void setDeficitTVA(Float deficitTVA) {
+        this.deficitTVA = deficitTVA;
     }
 
     @Override

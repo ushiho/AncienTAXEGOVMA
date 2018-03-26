@@ -27,7 +27,7 @@ public class ExerciceTVA implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private Long montant;
-    private int type;//1;achats ; 2:ventes
+    private String nFacture;
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date dateDebut;
     @Temporal(javax.persistence.TemporalType.DATE)
@@ -36,13 +36,14 @@ public class ExerciceTVA implements Serializable {
     private CategorieTVA categorieTVA;
     @ManyToOne
     private Societe societe;
+    @OneToOne
+    private DeclarationTva declarationTva;
 
     public ExerciceTVA() {
     }
 
-    public ExerciceTVA(Long montant, int type, Date dateDebut, Date dateFin) {
+    public ExerciceTVA(Long montant, Date dateDebut, Date dateFin) {
         this.montant = montant;
-        this.type = type;
         this.dateDebut = dateDebut;
         this.dateFin = dateFin;
     }
@@ -78,14 +79,6 @@ public class ExerciceTVA implements Serializable {
         this.categorieTVA = categorieTVA;
     }
 
-    public int getType() {
-        return type;
-    }
-
-    public void setType(int type) {
-        this.type = type;
-    }
-
     public Date getDateDebut() {
         return dateDebut;
     }
@@ -100,6 +93,33 @@ public class ExerciceTVA implements Serializable {
 
     public void setDateFin(Date dateFin) {
         this.dateFin = dateFin;
+    }
+
+    public String getnFacture() {
+        return nFacture;
+    }
+
+    public void setnFacture(String nFacture) {
+        this.nFacture = nFacture;
+    }
+
+    public Societe getSociete() {
+        return societe;
+    }
+
+    public void setSociete(Societe societe) {
+        this.societe = societe;
+    }
+
+    public DeclarationTva getDeclarationTva() {
+        if (declarationTva == null) {
+            declarationTva = new DeclarationTva();
+        }
+        return declarationTva;
+    }
+
+    public void setDeclarationTva(DeclarationTva declarationTva) {
+        this.declarationTva = declarationTva;
     }
 
     @Override
@@ -124,7 +144,7 @@ public class ExerciceTVA implements Serializable {
 
     @Override
     public String toString() {
-        return "Exercice{" + "id=" + id + ", montant=" + montant + ", type=" + type + '}';
+        return "Exercice{" + "id=" + id + ", montant=" + montant + '}';
     }
 
 }

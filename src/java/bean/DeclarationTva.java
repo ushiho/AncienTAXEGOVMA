@@ -6,15 +6,12 @@
 package bean;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 
@@ -29,22 +26,19 @@ public class DeclarationTva implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private String id;
-    private boolean isValidated;
     @Temporal(javax.persistence.TemporalType.DATE)
-    private Date dateCreation;
+    private Date dateDeclaration;
     @OneToOne
-    private Employe utilisateur;
-    private String periode;
-    private String annee;
-    private Double taxeDue;
-    private Double taxeDeductible;
-    private Double taxeAverser;
-    private Double taxeAreporter;
-    @OneToMany
-    private List<ExerciceTVA> exercices;
+    private Employe utilisateur;//mn session
+    private Float taxeDue = new Float(0);
+    private Float taxeDeductible = new Float(0);
+    private Float taxeAverser = new Float(0);
+    private Float taxeAreporter = new Float(0);
+    private int etat;
     @ManyToOne
     private Societe societe;
-    private int type;//1: mensuel ; 2: trimensuel
+    @OneToOne(mappedBy = "declarationTva")
+    private ExerciceTVA exerciceTVA;
 
     public DeclarationTva() {
     }
@@ -53,32 +47,18 @@ public class DeclarationTva implements Serializable {
         this.id = id;
     }
 
-    public DeclarationTva(boolean isValidated, Date dateCreation, String periode, String annee, Double taxeDue, Double taxeDeductible, Double taxeAverser, Double taxeAreporter, int type) {
-        this.isValidated = isValidated;
-        this.dateCreation = dateCreation;
-        this.periode = periode;
-        this.annee = annee;
-        this.taxeDue = taxeDue;
-        this.taxeDeductible = taxeDeductible;
-        this.taxeAverser = taxeAverser;
-        this.taxeAreporter = taxeAreporter;
-        this.type = type;
+    public DeclarationTva(String id, Date dateDeclaration, int etat) {
+        this.id = id;
+        this.dateDeclaration = dateDeclaration;
+        this.etat = etat;
     }
 
-    public boolean isIsValidated() {
-        return isValidated;
+    public Date getDateDeclaration() {
+        return dateDeclaration;
     }
 
-    public void setIsValidated(boolean isValidated) {
-        this.isValidated = isValidated;
-    }
-
-    public Date getDateCreation() {
-        return dateCreation;
-    }
-
-    public void setDateCreation(Date dateCreation) {
-        this.dateCreation = dateCreation;
+    public void setDateDeclaration(Date dateDeclaration) {
+        this.dateDeclaration = dateDeclaration;
     }
 
     public Employe getUtilisateur() {
@@ -92,79 +72,12 @@ public class DeclarationTva implements Serializable {
         this.utilisateur = utilisateur;
     }
 
-    public String getPeriode() {
-        return periode;
-    }
-
-    public void setPeriode(String periode) {
-        this.periode = periode;
-    }
-
-    public String getAnnee() {
-        return annee;
-    }
-
-    public void setAnnee(String annee) {
-        this.annee = annee;
-    }
-
-    public Double getTaxeDue() {
-        return taxeDue;
-    }
-
-    public void setTaxeDue(Double taxeDue) {
-        this.taxeDue = taxeDue;
-    }
-
-    public Double getTaxeDeductible() {
-        return taxeDeductible;
-    }
-
-    public void setTaxeDeductible(Double taxeDeductible) {
-        this.taxeDeductible = taxeDeductible;
-    }
-
-    public Double getTaxeAverser() {
-        return taxeAverser;
-    }
-
-    public void setTaxeAverser(Double taxeAverser) {
-        this.taxeAverser = taxeAverser;
-    }
-
-    public Double getTaxeAreporter() {
-        return taxeAreporter;
-    }
-
-    public void setTaxeAreporter(Double taxeAreporter) {
-        this.taxeAreporter = taxeAreporter;
-    }
-
-    public List<ExerciceTVA> getExercices() {
-        if (exercices == null) {
-            exercices = new ArrayList();
-        }
-        return exercices;
-    }
-
-    public void setExercices(List<ExerciceTVA> exercices) {
-        this.exercices = exercices;
-    }
-
     public String getId() {
         return id;
     }
 
     public void setId(String id) {
         this.id = id;
-    }
-
-    public int getType() {
-        return type;
-    }
-
-    public void setType(int type) {
-        this.type = type;
     }
 
     public Societe getSociete() {
@@ -176,6 +89,57 @@ public class DeclarationTva implements Serializable {
 
     public void setSociete(Societe societe) {
         this.societe = societe;
+    }
+
+    public int getEtat() {
+        return etat;
+    }
+
+    public void setEtat(int etat) {
+        this.etat = etat;
+    }
+
+    public ExerciceTVA getExerciceTVA() {
+        if (exerciceTVA == null) {
+            exerciceTVA = new ExerciceTVA();
+        }
+        return exerciceTVA;
+    }
+
+    public void setExerciceTVA(ExerciceTVA exerciceTVA) {
+        this.exerciceTVA = exerciceTVA;
+    }
+
+    public Float getTaxeDue() {
+        return taxeDue;
+    }
+
+    public void setTaxeDue(Float taxeDue) {
+        this.taxeDue = taxeDue;
+    }
+
+    public Float getTaxeDeductible() {
+        return taxeDeductible;
+    }
+
+    public void setTaxeDeductible(Float taxeDeductible) {
+        this.taxeDeductible = taxeDeductible;
+    }
+
+    public Float getTaxeAverser() {
+        return taxeAverser;
+    }
+
+    public void setTaxeAverser(Float taxeAverser) {
+        this.taxeAverser = taxeAverser;
+    }
+
+    public Float getTaxeAreporter() {
+        return taxeAreporter;
+    }
+
+    public void setTaxeAreporter(Float taxeAreporter) {
+        this.taxeAreporter = taxeAreporter;
     }
 
     @Override
@@ -200,7 +164,7 @@ public class DeclarationTva implements Serializable {
 
     @Override
     public String toString() {
-        return "DeclarationTva{" + "id=" + id + ", isValidated=" + isValidated + ", dateCreation=" + dateCreation + ", periode=" + periode + ", annee=" + annee + ", taxeDue=" + taxeDue + ", taxeDeductible=" + taxeDeductible + ", taxeAverser=" + taxeAverser + ", taxeAreporter=" + taxeAreporter + '}';
+        return "DeclarationTva{" + "id=" + id + ", dateCreation=" + dateDeclaration + ", taxeDue=" + taxeDue + ", taxeDeductible=" + taxeDeductible + ", taxeAverser=" + taxeAverser + ", taxeAreporter=" + taxeAreporter + '}';
     }
 
 }

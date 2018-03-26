@@ -76,7 +76,7 @@ public class DeclarationIsFacade extends AbstractFacade<DeclarationIs> {
     private boolean testExoneration(DeclarationIs declarationIs) {
         if (societeFacade.exonerer(declarationIs.getSociete())) {
             declarationIs.setMontantIs(0f);
-            declarationIs.getSociete().setDeficit(0f);
+            declarationIs.getSociete().setDeficitIS(0f);
             return true;
         } else if (calculerDeficit(declarationIs) > 0) {
             calcMontantIS(declarationIs);
@@ -102,14 +102,14 @@ public class DeclarationIsFacade extends AbstractFacade<DeclarationIs> {
 
     //ajout de deficit des annes derniers !!
     private int calculerDeficit(DeclarationIs declarationIs) {
-        float rest = declarationIs.getResultatFiscal() + declarationIs.getSociete().getDeficit();
+        float rest = declarationIs.getResultatFiscal() + declarationIs.getSociete().getDeficitIS();
         if (rest >= 0) {
-            declarationIs.getSociete().setDeficit(0f);//faire initialiser le deficit !
+            declarationIs.getSociete().setDeficitIS(0f);//faire initialiser le deficit !
             declarationIs.setResultatFiscal(rest);
             societeFacade.edit(declarationIs.getSociete());
             return 1;
         } else {
-            declarationIs.getSociete().setDeficit(rest);
+            declarationIs.getSociete().setDeficitIS(rest);
             societeFacade.edit(declarationIs.getSociete());
             return -1;
         }

@@ -120,7 +120,7 @@ public class DeclarationTvaFacade extends AbstractFacade<DeclarationTva> {
 
     private void appliquerPenalitePaimenet(PaiementTVA paiementTVA) {
         if (new Date().compareTo(paiementTVA.getDateDernierPaiement()) > 0) {
-            //service pr appliquer
+            //service pr appliquer 
             // tva
             paiementTVA.setMtRetartd(Float.NaN);
         }

@@ -18,8 +18,6 @@
                         <h:outputText value="#{exerciceTVAController.selected.montant}" title="#{bundle.ViewExerciceTVATitle_montant}"/>
                         <h:outputText value="#{bundle.ViewExerciceTVALabel_categorieTVA}"/>
                         <h:outputText value="#{exerciceTVAController.selected.categorieTVA}" title="#{bundle.ViewExerciceTVATitle_categorieTVA}"/>
-                        <h:outputText value="#{bundle.ViewExerciceTVALabel_type}"/>
-                        <h:outputText value="#{exerciceTVAController.selected.type}" title="#{bundle.ViewExerciceTVATitle_type}"/>
                         <h:outputText value="#{bundle.ViewExerciceTVALabel_dateDebut}"/>
                         <h:outputText value="#{exerciceTVAController.selected.dateDebut}" title="#{bundle.ViewExerciceTVATitle_dateDebut}">
                             <f:convertDateTime pattern="MM/dd/yyyy" />
@@ -28,6 +26,14 @@
                         <h:outputText value="#{exerciceTVAController.selected.dateFin}" title="#{bundle.ViewExerciceTVATitle_dateFin}">
                             <f:convertDateTime pattern="MM/dd/yyyy" />
                         </h:outputText>
+                        <h:outputText value="#{bundle.ViewExerciceTVALabel_nFacture}"/>
+                        <h:outputText value="#{exerciceTVAController.selected.nFacture}" title="#{bundle.ViewExerciceTVATitle_nFacture}"/>
+                        <h:outputText value="#{bundle.ViewExerciceTVALabel_societe}"/>
+                        <h:outputText value="#{exerciceTVAController.selected.societe}" title="#{bundle.ViewExerciceTVATitle_societe}"/>
+                        <h:outputText value="#{bundle.ViewExerciceTVALabel_declarationTva}"/>
+                        <h:outputText value="#{exerciceTVAController.selected.declarationTva}" title="#{bundle.ViewExerciceTVATitle_declarationTva}"/>
+                        <h:outputText value="#{bundle.ViewExerciceTVALabel_type}"/>
+                        <h:outputText value="#{exerciceTVAController.selected.type}" title="#{bundle.ViewExerciceTVATitle_type}"/>
                     </p:panelGrid>
                     <p:commandButton value="#{bundle.Close}" onclick="ExerciceTVAViewDialog.hide()"/>
                 </h:panelGroup>

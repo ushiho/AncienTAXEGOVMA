@@ -73,15 +73,21 @@
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListSocieteTitle_deficit}"/>
+                                <h:outputText value="#{bundle.ListSocieteTitle_deficitIS}"/>
                             </f:facet>
-                            <h:outputText value="#{item.deficit}"/>
+                            <h:outputText value="#{item.deficitIS}"/>
                         </p:column>
                         <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListSocieteTitle_password}"/>
                             </f:facet>
                             <h:outputText value="#{item.password}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListSocieteTitle_deficitTVA}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.deficitTVA}"/>
                         </p:column>
                         <f:facet name="footer">
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{societeController.prepareCreate}" update=":SocieteCreateForm" oncomplete="PF('SocieteCreateDialog').show()"/>

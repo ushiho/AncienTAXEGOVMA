@@ -42,6 +42,7 @@ public class DeclarationIs implements Serializable {
     private Float resultatComptable = new Float(0);
     private Float chiffreAffaire = new Float(0);
     private Float resultatFiscal = new Float(0);
+    private Float deficit = new Float(0);
     @OneToMany(mappedBy = "declarationIs")
     private List<PaiementIS> paiementISs;
 
@@ -162,6 +163,14 @@ public class DeclarationIs implements Serializable {
 
     public void setNbAccomptePaye(int nbAccomptePaye) {
         this.nbAccomptePaye = nbAccomptePaye;
+    }
+
+    public Float getDeficit() {
+        return deficit;
+    }
+
+    public void setDeficit(Float deficit) {
+        this.deficit = deficit;
     }
 
     @Override

@@ -12,30 +12,34 @@
             <h:form id="DeclarationTvaViewForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{declarationTvaController.selected != null}">
-                        <h:outputText value="#{bundle.ViewDeclarationTvaLabel_dateCreation}"/>
-                        <h:outputText value="#{declarationTvaController.selected.dateCreation}" title="#{bundle.ViewDeclarationTvaTitle_dateCreation}">
+                        <h:outputText value="#{bundle.ViewDeclarationTvaLabel_dateDeclaration}"/>
+                        <h:outputText value="#{declarationTvaController.selected.dateDeclaration}" title="#{bundle.ViewDeclarationTvaTitle_dateDeclaration}">
                             <f:convertDateTime pattern="MM/dd/yyyy" />
                         </h:outputText>
                         <h:outputText value="#{bundle.ViewDeclarationTvaLabel_utilisateur}"/>
                         <h:outputText value="#{declarationTvaController.selected.utilisateur}" title="#{bundle.ViewDeclarationTvaTitle_utilisateur}"/>
-                        <h:outputText value="#{bundle.ViewDeclarationTvaLabel_periode}"/>
-                        <h:outputText value="#{declarationTvaController.selected.periode}" title="#{bundle.ViewDeclarationTvaTitle_periode}"/>
-                        <h:outputText value="#{bundle.ViewDeclarationTvaLabel_annee}"/>
-                        <h:outputText value="#{declarationTvaController.selected.annee}" title="#{bundle.ViewDeclarationTvaTitle_annee}"/>
-                        <h:outputText value="#{bundle.ViewDeclarationTvaLabel_taxeDue}"/>
-                        <h:outputText value="#{declarationTvaController.selected.taxeDue}" title="#{bundle.ViewDeclarationTvaTitle_taxeDue}"/>
+                        <h:outputText value="#{bundle.ViewDeclarationTvaLabel_id}"/>
+                        <h:outputText value="#{declarationTvaController.selected.id}" title="#{bundle.ViewDeclarationTvaTitle_id}"/>
+                        <h:outputText value="#{bundle.ViewDeclarationTvaLabel_societe}"/>
+                        <h:outputText value="#{declarationTvaController.selected.societe}" title="#{bundle.ViewDeclarationTvaTitle_societe}"/>
+                        <h:outputText value="#{bundle.ViewDeclarationTvaLabel_etat}"/>
+                        <h:outputText value="#{declarationTvaController.selected.etat}" title="#{bundle.ViewDeclarationTvaTitle_etat}"/>
+                        <h:outputText value="#{bundle.ViewDeclarationTvaLabel_exerciceTVAVente}"/>
+                        <h:outputText value="#{declarationTvaController.selected.exerciceTVAVente}" title="#{bundle.ViewDeclarationTvaTitle_exerciceTVAVente}"/>
+                        <h:outputText value="#{bundle.ViewDeclarationTvaLabel_tvaDue}"/>
+                        <h:outputText value="#{declarationTvaController.selected.tvaDue}" title="#{bundle.ViewDeclarationTvaTitle_tvaDue}"/>
                         <h:outputText value="#{bundle.ViewDeclarationTvaLabel_taxeDeductible}"/>
                         <h:outputText value="#{declarationTvaController.selected.taxeDeductible}" title="#{bundle.ViewDeclarationTvaTitle_taxeDeductible}"/>
                         <h:outputText value="#{bundle.ViewDeclarationTvaLabel_taxeAverser}"/>
                         <h:outputText value="#{declarationTvaController.selected.taxeAverser}" title="#{bundle.ViewDeclarationTvaTitle_taxeAverser}"/>
-                        <h:outputText value="#{bundle.ViewDeclarationTvaLabel_taxeAreporter}"/>
-                        <h:outputText value="#{declarationTvaController.selected.taxeAreporter}" title="#{bundle.ViewDeclarationTvaTitle_taxeAreporter}"/>
-                        <h:outputText value="#{bundle.ViewDeclarationTvaLabel_id}"/>
-                        <h:outputText value="#{declarationTvaController.selected.id}" title="#{bundle.ViewDeclarationTvaTitle_id}"/>
-                        <h:outputText value="#{bundle.ViewDeclarationTvaLabel_type}"/>
-                        <h:outputText value="#{declarationTvaController.selected.type}" title="#{bundle.ViewDeclarationTvaTitle_type}"/>
-                        <h:outputText value="#{bundle.ViewDeclarationTvaLabel_societe}"/>
-                        <h:outputText value="#{declarationTvaController.selected.societe}" title="#{bundle.ViewDeclarationTvaTitle_societe}"/>
+                        <h:outputText value="#{bundle.ViewDeclarationTvaLabel_creditAreporter}"/>
+                        <h:outputText value="#{declarationTvaController.selected.creditAreporter}" title="#{bundle.ViewDeclarationTvaTitle_creditAreporter}"/>
+                        <h:outputText value="#{bundle.ViewDeclarationTvaLabel_regime}"/>
+                        <h:outputText value="#{declarationTvaController.selected.regime}" title="#{bundle.ViewDeclarationTvaTitle_regime}"/>
+                        <h:outputText value="#{bundle.ViewDeclarationTvaLabel_exerciceTVAAchat}"/>
+                        <h:outputText value="#{declarationTvaController.selected.exerciceTVAAchat}" title="#{bundle.ViewDeclarationTvaTitle_exerciceTVAAchat}"/>
+                        <h:outputText value="#{bundle.ViewDeclarationTvaLabel_paiementTVA}"/>
+                        <h:outputText value="#{declarationTvaController.selected.paiementTVA}" title="#{bundle.ViewDeclarationTvaTitle_paiementTVA}"/>
                     </p:panelGrid>
                     <p:commandButton value="#{bundle.Close}" onclick="DeclarationTvaViewDialog.hide()"/>
                 </h:panelGroup>

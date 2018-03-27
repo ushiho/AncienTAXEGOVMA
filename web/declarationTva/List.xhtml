@@ -29,9 +29,9 @@
 
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListDeclarationTvaTitle_dateCreation}"/>
+                                <h:outputText value="#{bundle.ListDeclarationTvaTitle_dateDeclaration}"/>
                             </f:facet>
-                            <h:outputText value="#{item.dateCreation}">
+                            <h:outputText value="#{item.dateDeclaration}">
                                 <f:convertDateTime pattern="MM/dd/yyyy" />
                             </h:outputText>
                         </p:column>
@@ -43,21 +43,33 @@
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListDeclarationTvaTitle_periode}"/>
+                                <h:outputText value="#{bundle.ListDeclarationTvaTitle_id}"/>
                             </f:facet>
-                            <h:outputText value="#{item.periode}"/>
+                            <h:outputText value="#{item.id}"/>
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListDeclarationTvaTitle_annee}"/>
+                                <h:outputText value="#{bundle.ListDeclarationTvaTitle_societe}"/>
                             </f:facet>
-                            <h:outputText value="#{item.annee}"/>
+                            <h:outputText value="#{item.societe}"/>
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListDeclarationTvaTitle_taxeDue}"/>
+                                <h:outputText value="#{bundle.ListDeclarationTvaTitle_etat}"/>
                             </f:facet>
-                            <h:outputText value="#{item.taxeDue}"/>
+                            <h:outputText value="#{item.etat}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDeclarationTvaTitle_exerciceTVAVente}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.exerciceTVAVente}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDeclarationTvaTitle_tvaDue}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.tvaDue}"/>
                         </p:column>
                         <p:column>
                             <f:facet name="header">
@@ -73,27 +85,27 @@
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListDeclarationTvaTitle_taxeAreporter}"/>
+                                <h:outputText value="#{bundle.ListDeclarationTvaTitle_creditAreporter}"/>
                             </f:facet>
-                            <h:outputText value="#{item.taxeAreporter}"/>
+                            <h:outputText value="#{item.creditAreporter}"/>
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListDeclarationTvaTitle_id}"/>
+                                <h:outputText value="#{bundle.ListDeclarationTvaTitle_regime}"/>
                             </f:facet>
-                            <h:outputText value="#{item.id}"/>
+                            <h:outputText value="#{item.regime}"/>
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListDeclarationTvaTitle_type}"/>
+                                <h:outputText value="#{bundle.ListDeclarationTvaTitle_exerciceTVAAchat}"/>
                             </f:facet>
-                            <h:outputText value="#{item.type}"/>
+                            <h:outputText value="#{item.exerciceTVAAchat}"/>
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListDeclarationTvaTitle_societe}"/>
+                                <h:outputText value="#{bundle.ListDeclarationTvaTitle_paiementTVA}"/>
                             </f:facet>
-                            <h:outputText value="#{item.societe}"/>
+                            <h:outputText value="#{item.paiementTVA}"/>
                         </p:column>
                         <f:facet name="footer">
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{declarationTvaController.prepareCreate}" update=":DeclarationTvaCreateForm" oncomplete="PF('DeclarationTvaCreateDialog').show()"/>

@@ -47,12 +47,6 @@
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListExerciceTVATitle_type}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.type}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
                                 <h:outputText value="#{bundle.ListExerciceTVATitle_dateDebut}"/>
                             </f:facet>
                             <h:outputText value="#{item.dateDebut}">
@@ -66,6 +60,30 @@
                             <h:outputText value="#{item.dateFin}">
                                 <f:convertDateTime pattern="MM/dd/yyyy" />
                             </h:outputText>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListExerciceTVATitle_nFacture}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.nFacture}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListExerciceTVATitle_societe}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.societe}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListExerciceTVATitle_declarationTva}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.declarationTva}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListExerciceTVATitle_type}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.type}"/>
                         </p:column>
                         <f:facet name="footer">
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{exerciceTVAController.prepareCreate}" update=":ExerciceTVACreateForm" oncomplete="PF('ExerciceTVACreateDialog').show()"/>

@@ -26,10 +26,12 @@
                         <p:inputText id="email" value="#{societeController.selected.email}" title="#{bundle.CreateSocieteTitle_email}" />
                         <p:outputLabel value="#{bundle.CreateSocieteLabel_dateCreation}" for="dateCreation" />
                         <p:calendar id="dateCreation" pattern="MM/dd/yyyy" value="#{societeController.selected.dateCreation}" title="#{bundle.EditSocieteTitle_dateCreation}"  showOn="button"/>
-                        <p:outputLabel value="#{bundle.CreateSocieteLabel_deficit}" for="deficit" />
-                        <p:inputText id="deficit" value="#{societeController.selected.deficit}" title="#{bundle.CreateSocieteTitle_deficit}" />
+                        <p:outputLabel value="#{bundle.CreateSocieteLabel_deficitIS}" for="deficitIS" />
+                        <p:inputText id="deficitIS" value="#{societeController.selected.deficitIS}" title="#{bundle.CreateSocieteTitle_deficitIS}" />
                         <p:outputLabel value="#{bundle.CreateSocieteLabel_password}" for="password" />
                         <p:inputText id="password" value="#{societeController.selected.password}" title="#{bundle.CreateSocieteTitle_password}" />
+                        <p:outputLabel value="#{bundle.CreateSocieteLabel_deficitTVA}" for="deficitTVA" />
+                        <p:inputText id="deficitTVA" value="#{societeController.selected.deficitTVA}" title="#{bundle.CreateSocieteTitle_deficitTVA}" />
                     </p:panelGrid>
                     <p:commandButton actionListener="#{societeController.create}" value="#{bundle.Save}" update="display,:SocieteListForm:datalist,:growl" oncomplete="handleSubmit(args,'SocieteCreateDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="SocieteCreateDialog.hide()"/>

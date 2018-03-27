@@ -38,6 +38,7 @@ public class ExerciceTVA implements Serializable {
     private Societe societe;
     @OneToOne
     private DeclarationTva declarationTva;
+    private int type; // 1 :achats ; 2 : ventes
 
     public ExerciceTVA() {
     }
@@ -120,6 +121,14 @@ public class ExerciceTVA implements Serializable {
 
     public void setDeclarationTva(DeclarationTva declarationTva) {
         this.declarationTva = declarationTva;
+    }
+
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
     }
 
     @Override

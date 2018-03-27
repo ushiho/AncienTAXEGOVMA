@@ -5,7 +5,7 @@
  */
 package service;
 
-import bean.CategorieTVA;
+import bean.DernierDelaiIS;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -15,7 +15,7 @@ import javax.persistence.PersistenceContext;
  * @author ushiho
  */
 @Stateless
-public class CategorieTVAFacade extends AbstractFacade<CategorieTVA> {
+public class DernierDelaiISFacade extends AbstractFacade<DernierDelaiIS> {
 
     @PersistenceContext(unitName = "TaxeGOVMAPU")
     private EntityManager em;
@@ -25,11 +25,13 @@ public class CategorieTVAFacade extends AbstractFacade<CategorieTVA> {
         return em;
     }
 
-    public CategorieTVAFacade() {
-        super(CategorieTVA.class);
+    public DernierDelaiISFacade() {
+        super(DernierDelaiIS.class);
     }
-    
-    public CategorieTVA findByNum(int num){
-        return getUniqueResult("SELECT c FROM CategorieTVA c WHERE c.num='"+num+"'");
-        }
+
+    public DernierDelaiIS findDatePaiementByAccompte(int accompte, int type) {
+        String req = "SELECT d FROM DernierDelaiIS d WHERE d.type = '1' AND d.accompteAverse = '" + accompte + "'"
+                + " AND d.type = '" + type + "'";
+        return getUniqueResult(req);
+    }
 }

@@ -67,26 +67,36 @@ public class DateUtil {
         }
     }
 
-    public static java.util.Date addMonthToDate(int nb, java.util.Date dateAModify) {
+    public static int addMonthToDate(int nb, java.util.Date dateAModify) {
         if (dateAModify != null) {
             GregorianCalendar gc = new GregorianCalendar();
             gc.setTime(dateAModify);
             gc.add(GregorianCalendar.MONTH, nb);
-            return gc.getTime();
+            return gc.getTime().getMonth();
         } else {
-            return null;
+            return -1;
         }
     }
 
-    public static java.util.Date addYearToDate(int nb, java.util.Date dateAModify) {
+    public static int addYearToDate(int nb, java.util.Date dateAModify) {
         if (dateAModify != null) {
             GregorianCalendar gc = new GregorianCalendar();
             gc.setTime(dateAModify);
             gc.add(GregorianCalendar.YEAR, nb);
-            return gc.getTime();
+            return gc.getTime().getYear();
         } else {
-            return null;
+            return -1;
         }
+    }
+
+    //test two dates
+    public static int compareTwoDates(Date dateDebut, Date dateFin) {
+        if (dateDebut == null || dateFin == null) {
+            return -1;
+        } else if (dateDebut.compareTo(dateFin) < 0) {
+            return -2;
+        }
+        return 1;
     }
 
 }

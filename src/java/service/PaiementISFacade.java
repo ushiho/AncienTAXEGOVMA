@@ -5,7 +5,7 @@
  */
 package service;
 
-import bean.DateDernierDelai;
+import bean.DernierDelaiIS;
 import bean.DeclarationIs;
 import bean.PaiementIS;
 import java.util.ArrayList;
@@ -28,7 +28,7 @@ public class PaiementISFacade extends AbstractFacade<PaiementIS> {
     private EntityManager em;
 
     @EJB
-    private DateDernierDelaiFacade dateDernierDelaiFacade;
+    private DernierDelaiISFacade dateDernierDelaiFacade;
 
     @Override
     protected EntityManager getEntityManager() {
@@ -54,11 +54,11 @@ public class PaiementISFacade extends AbstractFacade<PaiementIS> {
         return em.createQuery("DELETE FROM PaiementIS p WHERE p.declarationIs.id = '" + declarationIs.getId() + "'").executeUpdate();
     }
 
-    public List<PaiementIS> creation(DeclarationIs declarationIs) {
+    public List<PaiementIS> save(DeclarationIs declarationIs) {
         List<PaiementIS> paiementISs = new ArrayList();
         for (int i = 1; i <= 4; i++) {
             PaiementIS paiementIS = paiementISs.get(i);
-            DateDernierDelai dateDernierDelai = dateDernierDelaiFacade.findDatePaiementByAccompte(i);
+            DernierDelaiIS dateDernierDelai = dateDernierDelaiFacade.findDatePaiementByAccompte(i,2);
             String date = dateDernierDelai.getJour() + "/" + dateDernierDelai.getMois() + "/" + DateUtil.addYearToDate(1, declarationIs.getDateDeclaration());
             rempliParams(paiementIS, declarationIs, i, DateUtil.parse(date));
         }
@@ -72,5 +72,6 @@ public class PaiementISFacade extends AbstractFacade<PaiementIS> {
         paiementIS.setDeclarationIs(declarationIs);
         paiementIS.setMtBase((declarationIs.getMontantIs() / 4) % .3f);
         paiementIS.setDatePaiement(null);
+        paiementIS.setMtTotal(paiementIS.getMtBase());
     }
 }

@@ -23,12 +23,28 @@
                                            var="categorieTVAItem"
                                            itemValue="#{categorieTVAItem}"/>
                         </p:selectOneMenu>
-                        <p:outputLabel value="#{bundle.EditExerciceTVALabel_type}" for="type" />
-                        <p:inputText id="type" value="#{exerciceTVAController.selected.type}" title="#{bundle.EditExerciceTVATitle_type}" />
                         <p:outputLabel value="#{bundle.EditExerciceTVALabel_dateDebut}" for="dateDebut" />
                         <p:calendar id="dateDebut" pattern="MM/dd/yyyy" value="#{exerciceTVAController.selected.dateDebut}" title="#{bundle.EditExerciceTVATitle_dateDebut}"  showOn="button"/>
                         <p:outputLabel value="#{bundle.EditExerciceTVALabel_dateFin}" for="dateFin" />
                         <p:calendar id="dateFin" pattern="MM/dd/yyyy" value="#{exerciceTVAController.selected.dateFin}" title="#{bundle.EditExerciceTVATitle_dateFin}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditExerciceTVALabel_nFacture}" for="nFacture" />
+                        <p:inputText id="nFacture" value="#{exerciceTVAController.selected.nFacture}" title="#{bundle.EditExerciceTVATitle_nFacture}" />
+                        <p:outputLabel value="#{bundle.EditExerciceTVALabel_societe}" for="societe" />
+                        <p:selectOneMenu id="societe" value="#{exerciceTVAController.selected.societe}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{societeController.itemsAvailableSelectOne}"
+                                           var="societeItem"
+                                           itemValue="#{societeItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditExerciceTVALabel_declarationTva}" for="declarationTva" />
+                        <p:selectOneMenu id="declarationTva" value="#{exerciceTVAController.selected.declarationTva}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{declarationTvaController.itemsAvailableSelectOne}"
+                                           var="declarationTvaItem"
+                                           itemValue="#{declarationTvaItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditExerciceTVALabel_type}" for="type" />
+                        <p:inputText id="type" value="#{exerciceTVAController.selected.type}" title="#{bundle.EditExerciceTVATitle_type}" />
                     </p:panelGrid>
                     <p:commandButton actionListener="#{exerciceTVAController.update}" value="#{bundle.Save}" update="display,:ExerciceTVAListForm:datalist,:growl" oncomplete="handleSubmit(args, 'ExerciceTVAEditDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="ExerciceTVAEditDialog.hide()"/>

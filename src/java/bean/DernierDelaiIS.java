@@ -6,17 +6,21 @@
 package bean;
 
 import java.io.Serializable;
+import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Temporal;
 
 /**
  *
  * @author ushiho
  */
+//c est la partie admin
+//////////////////////////////\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 @Entity
-public class DateDernierDelai implements Serializable {
+public class DernierDelaiIS implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -26,15 +30,17 @@ public class DateDernierDelai implements Serializable {
     private int jour;
     private int accompteAverse; // 1 , 2 ,3 ,4
     private int type;//1:date de dernier delai de declaration / 2 de paiement
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private Date dateAppDeCetLoi;
 
-    public DateDernierDelai() {
+    public DernierDelaiIS() {
     }
 
-    public DateDernierDelai(Long id) {
+    public DernierDelaiIS(Long id) {
         this.id = id;
     }
 
-    public DateDernierDelai(int mois, int jour, int accompteAverse) {
+    public DernierDelaiIS(int mois, int jour, int accompteAverse) {
         this.mois = mois;
         this.jour = jour;
         this.accompteAverse = accompteAverse;
@@ -80,6 +86,14 @@ public class DateDernierDelai implements Serializable {
         this.type = type;
     }
 
+    public Date getDateAppDeCetLoi() {
+        return dateAppDeCetLoi;
+    }
+
+    public void setDateAppDeCetLoi(Date dateAppDeCetLoi) {
+        this.dateAppDeCetLoi = dateAppDeCetLoi;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -90,10 +104,10 @@ public class DateDernierDelai implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof DateDernierDelai)) {
+        if (!(object instanceof DernierDelaiIS)) {
             return false;
         }
-        DateDernierDelai other = (DateDernierDelai) object;
+        DernierDelaiIS other = (DernierDelaiIS) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }

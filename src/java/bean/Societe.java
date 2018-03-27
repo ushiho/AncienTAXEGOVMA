@@ -34,7 +34,8 @@ public class Societe implements Serializable {
     private String numFix;
     private String email;
     private Float deficitIS;//resultat fiscal < 0
-    private Float deficitTVA;//resultat fiscal < 0
+    private Float deficitTVA;//resultat tva < 0
+    private int regimeTVA;//1:mensuelle ; 3: trimest
 
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date dateCreation;//1,2,...5
@@ -166,6 +167,14 @@ public class Societe implements Serializable {
 
     public void setDeficitTVA(Float deficitTVA) {
         this.deficitTVA = deficitTVA;
+    }
+
+    public int getRegimeTVA() {
+        return regimeTVA;
+    }
+
+    public void setRegimeTVA(int regimeTVA) {
+        this.regimeTVA = regimeTVA;
     }
 
     @Override

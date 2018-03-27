@@ -1,9 +1,9 @@
 package controller;
 
-import bean.DateDernierDelai;
+import bean.DernierDelaiIS;
 import controller.util.JsfUtil;
 import controller.util.JsfUtil.PersistAction;
-import service.DateDernierDelaiFacade;
+import service.DernierDelaiISFacade;
 
 import java.io.Serializable;
 import java.util.List;
@@ -19,23 +19,23 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
-@Named("dateDernierDelaiController")
+@Named("dernierDelaiISController")
 @SessionScoped
-public class DateDernierDelaiController implements Serializable {
+public class DernierDelaiISController implements Serializable {
 
     @EJB
-    private service.DateDernierDelaiFacade ejbFacade;
-    private List<DateDernierDelai> items = null;
-    private DateDernierDelai selected;
+    private service.DernierDelaiISFacade ejbFacade;
+    private List<DernierDelaiIS> items = null;
+    private DernierDelaiIS selected;
 
-    public DateDernierDelaiController() {
+    public DernierDelaiISController() {
     }
 
-    public DateDernierDelai getSelected() {
+    public DernierDelaiIS getSelected() {
         return selected;
     }
 
-    public void setSelected(DateDernierDelai selected) {
+    public void setSelected(DernierDelaiIS selected) {
         this.selected = selected;
     }
 
@@ -45,36 +45,36 @@ public class DateDernierDelaiController implements Serializable {
     protected void initializeEmbeddableKey() {
     }
 
-    private DateDernierDelaiFacade getFacade() {
+    private DernierDelaiISFacade getFacade() {
         return ejbFacade;
     }
 
-    public DateDernierDelai prepareCreate() {
-        selected = new DateDernierDelai();
+    public DernierDelaiIS prepareCreate() {
+        selected = new DernierDelaiIS();
         initializeEmbeddableKey();
         return selected;
     }
 
     public void create() {
-        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("DateDernierDelaiCreated"));
+        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("DernierDelaiISCreated"));
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
 
     public void update() {
-        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("DateDernierDelaiUpdated"));
+        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("DernierDelaiISUpdated"));
     }
 
     public void destroy() {
-        persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle").getString("DateDernierDelaiDeleted"));
+        persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle").getString("DernierDelaiISDeleted"));
         if (!JsfUtil.isValidationFailed()) {
             selected = null; // Remove selection
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
 
-    public List<DateDernierDelai> getItems() {
+    public List<DernierDelaiIS> getItems() {
         if (items == null) {
             items = getFacade().findAll();
         }
@@ -109,29 +109,29 @@ public class DateDernierDelaiController implements Serializable {
         }
     }
 
-    public DateDernierDelai getDateDernierDelai(java.lang.Long id) {
+    public DernierDelaiIS getDernierDelaiIS(java.lang.Long id) {
         return getFacade().find(id);
     }
 
-    public List<DateDernierDelai> getItemsAvailableSelectMany() {
+    public List<DernierDelaiIS> getItemsAvailableSelectMany() {
         return getFacade().findAll();
     }
 
-    public List<DateDernierDelai> getItemsAvailableSelectOne() {
+    public List<DernierDelaiIS> getItemsAvailableSelectOne() {
         return getFacade().findAll();
     }
 
-    @FacesConverter(forClass = DateDernierDelai.class)
-    public static class DateDernierDelaiControllerConverter implements Converter {
+    @FacesConverter(forClass = DernierDelaiIS.class)
+    public static class DernierDelaiISControllerConverter implements Converter {
 
         @Override
         public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
             if (value == null || value.length() == 0) {
                 return null;
             }
-            DateDernierDelaiController controller = (DateDernierDelaiController) facesContext.getApplication().getELResolver().
-                    getValue(facesContext.getELContext(), null, "dateDernierDelaiController");
-            return controller.getDateDernierDelai(getKey(value));
+            DernierDelaiISController controller = (DernierDelaiISController) facesContext.getApplication().getELResolver().
+                    getValue(facesContext.getELContext(), null, "dernierDelaiISController");
+            return controller.getDernierDelaiIS(getKey(value));
         }
 
         java.lang.Long getKey(String value) {
@@ -151,11 +151,11 @@ public class DateDernierDelaiController implements Serializable {
             if (object == null) {
                 return null;
             }
-            if (object instanceof DateDernierDelai) {
-                DateDernierDelai o = (DateDernierDelai) object;
+            if (object instanceof DernierDelaiIS) {
+                DernierDelaiIS o = (DernierDelaiIS) object;
                 return getStringKey(o.getId());
             } else {
-                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), DateDernierDelai.class.getName()});
+                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), DernierDelaiIS.class.getName()});
                 return null;
             }
         }

@@ -1,9 +1,9 @@
 package controller;
 
-import bean.DeclarationTva;
+import bean.DernierDelaiTVA;
 import controller.util.JsfUtil;
 import controller.util.JsfUtil.PersistAction;
-import service.DeclarationTvaFacade;
+import service.DernierDelaiTVAFacade;
 
 import java.io.Serializable;
 import java.util.List;
@@ -19,23 +19,23 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
-@Named("declarationTvaController")
+@Named("dernierDelaiTVAController")
 @SessionScoped
-public class DeclarationTvaController implements Serializable {
+public class DernierDelaiTVAController implements Serializable {
 
     @EJB
-    private service.DeclarationTvaFacade ejbFacade;
-    private List<DeclarationTva> items = null;
-    private DeclarationTva selected;
+    private service.DernierDelaiTVAFacade ejbFacade;
+    private List<DernierDelaiTVA> items = null;
+    private DernierDelaiTVA selected;
 
-    public DeclarationTvaController() {
+    public DernierDelaiTVAController() {
     }
 
-    public DeclarationTva getSelected() {
+    public DernierDelaiTVA getSelected() {
         return selected;
     }
 
-    public void setSelected(DeclarationTva selected) {
+    public void setSelected(DernierDelaiTVA selected) {
         this.selected = selected;
     }
 
@@ -45,36 +45,36 @@ public class DeclarationTvaController implements Serializable {
     protected void initializeEmbeddableKey() {
     }
 
-    private DeclarationTvaFacade getFacade() {
+    private DernierDelaiTVAFacade getFacade() {
         return ejbFacade;
     }
 
-    public DeclarationTva prepareCreate() {
-        selected = new DeclarationTva();
+    public DernierDelaiTVA prepareCreate() {
+        selected = new DernierDelaiTVA();
         initializeEmbeddableKey();
         return selected;
     }
 
     public void create() {
-        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("DeclarationTvaCreated"));
+        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("DernierDelaiTVACreated"));
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
 
     public void update() {
-        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("DeclarationTvaUpdated"));
+        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("DernierDelaiTVAUpdated"));
     }
 
     public void destroy() {
-        persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle").getString("DeclarationTvaDeleted"));
+        persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle").getString("DernierDelaiTVADeleted"));
         if (!JsfUtil.isValidationFailed()) {
             selected = null; // Remove selection
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
 
-    public List<DeclarationTva> getItems() {
+    public List<DernierDelaiTVA> getItems() {
         if (items == null) {
             items = getFacade().findAll();
         }
@@ -109,34 +109,34 @@ public class DeclarationTvaController implements Serializable {
         }
     }
 
-    public DeclarationTva getDeclarationTva(java.lang.String id) {
+    public DernierDelaiTVA getDernierDelaiTVA(java.lang.Long id) {
         return getFacade().find(id);
     }
 
-    public List<DeclarationTva> getItemsAvailableSelectMany() {
+    public List<DernierDelaiTVA> getItemsAvailableSelectMany() {
         return getFacade().findAll();
     }
 
-    public List<DeclarationTva> getItemsAvailableSelectOne() {
+    public List<DernierDelaiTVA> getItemsAvailableSelectOne() {
         return getFacade().findAll();
     }
 
-    @FacesConverter(forClass = DeclarationTva.class)
-    public static class DeclarationTvaControllerConverter implements Converter {
+    @FacesConverter(forClass = DernierDelaiTVA.class)
+    public static class DernierDelaiTVAControllerConverter implements Converter {
 
         @Override
         public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
             if (value == null || value.length() == 0) {
                 return null;
             }
-            DeclarationTvaController controller = (DeclarationTvaController) facesContext.getApplication().getELResolver().
-                    getValue(facesContext.getELContext(), null, "declarationTvaController");
-            return controller.getDeclarationTva(getKey(value));
+            DernierDelaiTVAController controller = (DernierDelaiTVAController) facesContext.getApplication().getELResolver().
+                    getValue(facesContext.getELContext(), null, "dernierDelaiTVAController");
+            return controller.getDernierDelaiTVA(getKey(value));
         }
 
-        java.lang.String getKey(String value) {
-            java.lang.String key;
-            key = value;
+        java.lang.Long getKey(String value) {
+            java.lang.Long key;
+            key = Long.valueOf(value);
             return key;
         }
 
@@ -151,11 +151,11 @@ public class DeclarationTvaController implements Serializable {
             if (object == null) {
                 return null;
             }
-            if (object instanceof DeclarationTva) {
-                DeclarationTva o = (DeclarationTva) object;
+            if (object instanceof DernierDelaiTVA) {
+                DernierDelaiTVA o = (DernierDelaiTVA) object;
                 return getStringKey(o.getId());
             } else {
-                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), DeclarationTva.class.getName()});
+                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), DernierDelaiTVA.class.getName()});
                 return null;
             }
         }

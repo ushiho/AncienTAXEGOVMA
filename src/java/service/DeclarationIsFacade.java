@@ -50,7 +50,7 @@ public class DeclarationIsFacade extends AbstractFacade<DeclarationIs> {
         if (testParamForSave(exerciceISs)) {
             return -1;
         }
-        DeclarationIs declarationIs = calculerResultatFiscaleEtComptable(exerciceISs);
+        DeclarationIs declarationIs = setParams(exerciceISs);
         if (!testExoneration(declarationIs)) {
             //creation de penalite sur retard de declaration
 
@@ -63,7 +63,7 @@ public class DeclarationIsFacade extends AbstractFacade<DeclarationIs> {
     }
 
     private boolean testParamForSave(List<ExerciceIS> exerciceISs) {
-        return exerciceISs == null || exerciceISs.get(0) == null || exerciceISs.isEmpty() || exerciceISFacade.testParams(exerciceISs) < 0;
+        return exerciceISs == null || exerciceISs.get(0) == null || exerciceISs.isEmpty() || exerciceISFacade.testExercices(exerciceISs) < 0;
     }
 
     private void initDecalarationIsParam(DeclarationIs declarationIs) {
@@ -111,14 +111,15 @@ public class DeclarationIsFacade extends AbstractFacade<DeclarationIs> {
         } else {
             declarationIs.getSociete().setDeficitIS(rest);
             societeFacade.edit(declarationIs.getSociete());
+            declarationIs.setDeficit(rest);
             return -1;
         }
 
     }
 
-    private DeclarationIs calculerResultatFiscaleEtComptable(List<ExerciceIS> exerciceISs) {
+    private DeclarationIs setParams(List<ExerciceIS> exerciceISs) {
         DeclarationIs declarationIs = new DeclarationIs();
-        declarationIs.setSociete(exerciceISs.get(0).getSociete());
+        declarationIs.setSociete(exerciceISs.get(0).getSociete());//societe ghatjibha mn utili mn session !!!
         for (int i = 0; i < exerciceISs.size(); i++) {
             ExerciceIS exerciceIS = exerciceISs.get(i);
             declarationIs.setResultatComptable(declarationIs.getResultatComptable() + exerciceIS.getProduits() - exerciceIS.getCharges());
@@ -134,7 +135,7 @@ public class DeclarationIsFacade extends AbstractFacade<DeclarationIs> {
         if (declarationIs == null) {
             return -1;
         }
-        List<PaiementIS> paiementISs = paiementISFacade.creation(declarationIs);
+        List<PaiementIS> paiementISs = paiementISFacade.save(declarationIs);
         declarationIs.setEtat(1);
         declarationIs.setPaiementISs(paiementISs);
         edit(declarationIs);
@@ -146,7 +147,7 @@ public class DeclarationIsFacade extends AbstractFacade<DeclarationIs> {
         if (testParamForPayer(declarationIs, compteBanquaire)) {
             return -1;
         }
-        PaiementIS paiementIS = paiementApayer(declarationIs);
+        PaiementIS paiementIS = accomptApayer(declarationIs);
         if (paiementIS == null) {
             return -2;
         }
@@ -156,15 +157,16 @@ public class DeclarationIsFacade extends AbstractFacade<DeclarationIs> {
         } else {
             compteBanquaireFacade.debiter(compteBanquaireFacade.findByDGI(), paiementIS.getMtTotal());
             paiementIS.setDatePaiement(new Date());
+            declarationIs.setEtat(2);
             edit(declarationIs);
             paiementISFacade.edit(paiementIS);
+            return 1;
         }
-        return 1;
+
     }
 
-    private PaiementIS paiementApayer(DeclarationIs declarationIs) {
+    private PaiementIS accomptApayer(DeclarationIs declarationIs) {
         int accompte = declarationIs.getNbAccomptePaye();
-        PaiementIS paiementIS;
         switch (accompte) {
             case 0:
                 return declarationIs.getPaiementISs().get(1);
@@ -180,7 +182,7 @@ public class DeclarationIsFacade extends AbstractFacade<DeclarationIs> {
 
     private void appliquerPenalitePrPaiement(PaiementIS paiementIS) {
         if (new Date().compareTo(paiementIS.getDateDernierDelai()) > 0) {
-            //chercher les anciens penalits + creation de penalite+calcul de mt de retard
+            //chercher les anciens penalits + save de penalite+calcul de mt de retard
             paiementIS.setMtRetard(Float.NaN);
 
         }
@@ -188,10 +190,7 @@ public class DeclarationIsFacade extends AbstractFacade<DeclarationIs> {
     }
 
     private boolean testParamForPayer(DeclarationIs declarationIs, CompteBanquaire compteBanquaire) {
-        if (declarationIs == null || compteBanquaire == null || !compteBanquaireFacade.findBySociete(declarationIs.getSociete()).contains(compteBanquaire)) {
-            return true;
-        }
-        return false;
+        return declarationIs == null || compteBanquaire == null || !compteBanquaireFacade.findBySociete(declarationIs.getSociete()).contains(compteBanquaire);
     }
 
     public int modify(DeclarationIs declarationIs, List<ExerciceIS> nvExerciceISs) {

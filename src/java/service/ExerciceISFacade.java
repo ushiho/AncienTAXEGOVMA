@@ -10,6 +10,7 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import util.DateUtil;
 
 /**
  *
@@ -31,7 +32,7 @@ public class ExerciceISFacade extends AbstractFacade<ExerciceIS> {
     }
 
     public int save(List<ExerciceIS> exerciceISs) {
-        if (testParams(exerciceISs) < 0) {
+        if (testExercices(exerciceISs) < 0) {
             return -1;
         }
         for (int i = 0; i < exerciceISs.size(); i++) {
@@ -41,18 +42,33 @@ public class ExerciceISFacade extends AbstractFacade<ExerciceIS> {
         return 1;
     }
 
-    public int testParams(List<ExerciceIS> exerciceISs) {
+    public int testExercices(List<ExerciceIS> exerciceISs) {
         if (exerciceISs == null || exerciceISs.isEmpty()) {
             return -1;
         }
         for (int i = 0; i < exerciceISs.size(); i++) {
             ExerciceIS exerciceIS = exerciceISs.get(i);
-            if (exerciceIS.getCharges() < 0 || exerciceIS.getNonDeductibles() < 0 || exerciceIS.getDeductibles() < 0
-                    || exerciceIS.getProduits() < 0 || exerciceIS.getDateDebut().compareTo(exerciceIS.getDateFin()) > 0) {
+            if (testParams(exerciceIS)<0) {
                 return -2;
             }
         }
         return 1;
     }
 
+    public int testParams(ExerciceIS exerciceIS) {
+        if (exerciceIS.getCharges() < 0 || exerciceIS.getNonDeductibles() < 0 || exerciceIS.getDeductibles() < 0
+                || exerciceIS.getProduits() < 0 || exerciceIS.getDateDebut().compareTo(exerciceIS.getDateFin()) > 0
+                || DateUtil.compareTwoDates(exerciceIS.getDateDebut(), exerciceIS.getDateFin()) < 0
+                ||exerciceIS.getSociete()==null) {
+            return -1;
+        }
+        return 1;
+    }
+    public int delete(ExerciceIS exerciceIS) {
+        if (exerciceIS == null) {
+            return -1;
+        }
+        remove(exerciceIS);
+        return 1;
+    }
 }

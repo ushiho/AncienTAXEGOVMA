@@ -28,10 +28,12 @@
                         <h:outputText value="#{societeController.selected.dateCreation}" title="#{bundle.ViewSocieteTitle_dateCreation}">
                             <f:convertDateTime pattern="MM/dd/yyyy" />
                         </h:outputText>
-                        <h:outputText value="#{bundle.ViewSocieteLabel_deficit}"/>
-                        <h:outputText value="#{societeController.selected.deficit}" title="#{bundle.ViewSocieteTitle_deficit}"/>
+                        <h:outputText value="#{bundle.ViewSocieteLabel_deficitIS}"/>
+                        <h:outputText value="#{societeController.selected.deficitIS}" title="#{bundle.ViewSocieteTitle_deficitIS}"/>
                         <h:outputText value="#{bundle.ViewSocieteLabel_password}"/>
                         <h:outputText value="#{societeController.selected.password}" title="#{bundle.ViewSocieteTitle_password}"/>
+                        <h:outputText value="#{bundle.ViewSocieteLabel_deficitTVA}"/>
+                        <h:outputText value="#{societeController.selected.deficitTVA}" title="#{bundle.ViewSocieteTitle_deficitTVA}"/>
                     </p:panelGrid>
                     <p:commandButton value="#{bundle.Close}" onclick="SocieteViewDialog.hide()"/>
                 </h:panelGroup>

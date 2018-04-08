@@ -6,12 +6,14 @@
 package bean;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 
 /**
@@ -19,7 +21,7 @@ import javax.persistence.Temporal;
  * @author ushiho
  */
 @Entity
-public class Penalite implements Serializable {
+public class PenaliteIS implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -28,21 +30,19 @@ public class Penalite implements Serializable {
     @ManyToOne
     private Societe societe;
     @Temporal(javax.persistence.TemporalType.DATE)
-    private Date dateDernierDeclaration;
-    private Double montantPenalite;
-    private Float taux;//5%  ou/et 0.5%
-    private boolean appliquer;
+    private BigDecimal mtPenalite = new BigDecimal(0);
+    private BigDecimal mtBase = new BigDecimal(0);
+    @OneToOne
+    private ConditionPenaliteIS conditionPenalite;
+    @OneToOne
+    private DeclarationIs declarationIs;
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private Date dateAppl;
 
-    public Penalite(Date dateDernierDeclaration, Double montantPenalite, Float taux) {
-        this.dateDernierDeclaration = dateDernierDeclaration;
-        this.montantPenalite = montantPenalite;
-        this.taux = taux;
+    public PenaliteIS() {
     }
 
-    public Penalite() {
-    }
-
-    public Penalite(Long id) {
+    public PenaliteIS(Long id) {
         this.id = id;
     }
 
@@ -65,28 +65,50 @@ public class Penalite implements Serializable {
         this.societe = societe;
     }
 
-    public Date getDateDernierDeclaration() {
-        return dateDernierDeclaration;
+    public BigDecimal getMtPenalite() {
+        return mtPenalite;
     }
 
-    public void setDateDernierDeclaration(Date dateDernierDeclaration) {
-        this.dateDernierDeclaration = dateDernierDeclaration;
+    public void setMtPenalite(BigDecimal mtPenalite) {
+        this.mtPenalite = mtPenalite;
     }
 
-    public Double getMontantPenalite() {
-        return montantPenalite;
+    public BigDecimal getMtBase() {
+        return mtBase;
     }
 
-    public void setMontantPenalite(Double montantPenalite) {
-        this.montantPenalite = montantPenalite;
+    public void setMtBase(BigDecimal mtBase) {
+        this.mtBase = mtBase;
     }
 
-    public Float getTaux() {
-        return taux;
+    public ConditionPenaliteIS getConditionPenalite() {
+        if (conditionPenalite == null) {
+            conditionPenalite = new ConditionPenaliteIS();
+        }
+        return conditionPenalite;
     }
 
-    public void setTaux(Float taux) {
-        this.taux = taux;
+    public void setConditionPenalite(ConditionPenaliteIS conditionPenalite) {
+        this.conditionPenalite = conditionPenalite;
+    }
+
+    public DeclarationIs getDeclarationIs() {
+        if (declarationIs == null) {
+            declarationIs = new DeclarationIs();
+        }
+        return declarationIs;
+    }
+
+    public void setDeclarationIs(DeclarationIs declarationIs) {
+        this.declarationIs = declarationIs;
+    }
+
+    public Date getDateAppl() {
+        return dateAppl;
+    }
+
+    public void setDateAppl(Date dateAppl) {
+        this.dateAppl = dateAppl;
     }
 
     @Override
@@ -99,10 +121,10 @@ public class Penalite implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Penalite)) {
+        if (!(object instanceof PenaliteIS)) {
             return false;
         }
-        Penalite other = (Penalite) object;
+        PenaliteIS other = (PenaliteIS) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }

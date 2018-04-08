@@ -5,7 +5,8 @@
  */
 package service;
 
-import bean.Penalite;
+import bean.DeclarationIs;
+import bean.PenaliteIS;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -15,7 +16,7 @@ import javax.persistence.PersistenceContext;
  * @author ushiho
  */
 @Stateless
-public class PenaliteFacade extends AbstractFacade<Penalite> {
+public class PenaliteISFacade extends AbstractFacade<PenaliteIS> {
 
     @PersistenceContext(unitName = "TaxeGOVMAPU")
     private EntityManager em;
@@ -25,8 +26,11 @@ public class PenaliteFacade extends AbstractFacade<Penalite> {
         return em;
     }
 
-    public PenaliteFacade() {
-        super(Penalite.class);
+    public PenaliteISFacade() {
+        super(PenaliteIS.class);
     }
     
+//    public int saveForDeclarationIS(DeclarationIs declarationIs){
+//        Exe
+//    }
 }

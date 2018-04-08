@@ -5,7 +5,6 @@
  */
 package service;
 
-import bean.DernierDelaiIS;
 import bean.DernierDelaiTVA;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;

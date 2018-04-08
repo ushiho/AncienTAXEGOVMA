@@ -1,9 +1,9 @@
 package controller;
 
-import bean.Penalite;
+import bean.PenaliteIS;
 import controller.util.JsfUtil;
 import controller.util.JsfUtil.PersistAction;
-import service.PenaliteFacade;
+import service.PenaliteISFacade;
 
 import java.io.Serializable;
 import java.util.List;
@@ -21,21 +21,21 @@ import javax.faces.convert.FacesConverter;
 
 @Named("penaliteController")
 @SessionScoped
-public class PenaliteController implements Serializable {
+public class PenaliteISController implements Serializable {
 
     @EJB
-    private service.PenaliteFacade ejbFacade;
-    private List<Penalite> items = null;
-    private Penalite selected;
+    private service.PenaliteISFacade ejbFacade;
+    private List<PenaliteIS> items = null;
+    private PenaliteIS selected;
 
-    public PenaliteController() {
+    public PenaliteISController() {
     }
 
-    public Penalite getSelected() {
+    public PenaliteIS getSelected() {
         return selected;
     }
 
-    public void setSelected(Penalite selected) {
+    public void setSelected(PenaliteIS selected) {
         this.selected = selected;
     }
 
@@ -45,12 +45,12 @@ public class PenaliteController implements Serializable {
     protected void initializeEmbeddableKey() {
     }
 
-    private PenaliteFacade getFacade() {
+    private PenaliteISFacade getFacade() {
         return ejbFacade;
     }
 
-    public Penalite prepareCreate() {
-        selected = new Penalite();
+    public PenaliteIS prepareCreate() {
+        selected = new PenaliteIS();
         initializeEmbeddableKey();
         return selected;
     }
@@ -74,7 +74,7 @@ public class PenaliteController implements Serializable {
         }
     }
 
-    public List<Penalite> getItems() {
+    public List<PenaliteIS> getItems() {
         if (items == null) {
             items = getFacade().findAll();
         }
@@ -109,19 +109,19 @@ public class PenaliteController implements Serializable {
         }
     }
 
-    public Penalite getPenalite(java.lang.Long id) {
+    public PenaliteIS getPenalite(java.lang.Long id) {
         return getFacade().find(id);
     }
 
-    public List<Penalite> getItemsAvailableSelectMany() {
+    public List<PenaliteIS> getItemsAvailableSelectMany() {
         return getFacade().findAll();
     }
 
-    public List<Penalite> getItemsAvailableSelectOne() {
+    public List<PenaliteIS> getItemsAvailableSelectOne() {
         return getFacade().findAll();
     }
 
-    @FacesConverter(forClass = Penalite.class)
+    @FacesConverter(forClass = PenaliteIS.class)
     public static class PenaliteControllerConverter implements Converter {
 
         @Override
@@ -129,7 +129,7 @@ public class PenaliteController implements Serializable {
             if (value == null || value.length() == 0) {
                 return null;
             }
-            PenaliteController controller = (PenaliteController) facesContext.getApplication().getELResolver().
+            PenaliteISController controller = (PenaliteISController) facesContext.getApplication().getELResolver().
                     getValue(facesContext.getELContext(), null, "penaliteController");
             return controller.getPenalite(getKey(value));
         }
@@ -151,11 +151,11 @@ public class PenaliteController implements Serializable {
             if (object == null) {
                 return null;
             }
-            if (object instanceof Penalite) {
-                Penalite o = (Penalite) object;
+            if (object instanceof PenaliteIS) {
+                PenaliteIS o = (PenaliteIS) object;
                 return getStringKey(o.getId());
             } else {
-                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), Penalite.class.getName()});
+                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), PenaliteIS.class.getName()});
                 return null;
             }
         }
